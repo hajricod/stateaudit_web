@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Http\Controllers\admin\UsersController;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -29,6 +30,16 @@ class UsersDatatable extends Component
         }
 
         $this->sortField = $field;
+    }
+
+    public function delete($id) {
+
+        $user = User::find($id);
+
+        $user->delete();
+
+        session()->flash('message', __('Record was deleted!'));
+
     }
 
     protected function featch() {
