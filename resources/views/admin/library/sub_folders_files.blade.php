@@ -9,38 +9,40 @@
                 {{lang() == 'ar' ? $folder->title : ($folder->title_en != '' ? $folder->title_en : $folder->title)}}
             </a>
 
-            <div class="dropdown">
-                <button class="btn btn-link dropdown shadow-none" type="button" id="dropdownAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                    </svg>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="dropdownAction">
-                    <button class="dropdown-item" data-toggle="modal" data-target="#folderModal" data-folder_id="{{$folder->id}}" data-sub_folder_id={{$folder->sub_folder_id}}>
-                        {{__('Add Folder')}}
+            @can('group-admin',  App\Models\Group::find(Auth::user()->group_id))
+                <div class="dropdown">
+                    <button class="btn btn-link dropdown shadow-none" type="button" id="dropdownAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        </svg>
                     </button>
-                    <button class="dropdown-item" data-toggle="modal" data-target="#folderEditModal" 
-                    data-folder_id="{{$folder->id}}" 
-                    data-sub_folder_id="{{$folder->sub_folder_id}}"
-                    data-title="{{$folder->title}}"
-                    data-title_en="{{$folder->title_en}}"
-                    data-description="{{$folder->description}}"
-                    data-description_en="{{$folder->description_en}}">
-                        {{__('Edit')}}
-                    </button>
-    
-                    <form action="/admin/folders/{{$folder->id}}" method="POST" class="deleteFolderForm">
-                        @csrf
-                        @method('delete')
-                        <input type="hidden" class="folder_id" id="" name="folder_id" value="folder_{{$folder->id}}">
-                        <button class="dropdown-item" type="submit">{{__('Delete')}}</button>
-                    </form>
-                    <div class="dropdown-divider"></div>
-                    <button class="dropdown-item" data-toggle="modal" data-target="#fileModal" data-folder_id="{{$folder->id}}" data-sub_folder_id={{$folder->sub_folder_id}}>
-                        {{__('Add File')}}
-                    </button>
+                    <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="dropdownAction">
+                        <button class="dropdown-item" data-toggle="modal" data-target="#folderModal" data-folder_id="{{$folder->id}}" data-sub_folder_id={{$folder->sub_folder_id}}>
+                            {{__('Add Folder')}}
+                        </button>
+                        <button class="dropdown-item" data-toggle="modal" data-target="#folderEditModal" 
+                        data-folder_id="{{$folder->id}}" 
+                        data-sub_folder_id="{{$folder->sub_folder_id}}"
+                        data-title="{{$folder->title}}"
+                        data-title_en="{{$folder->title_en}}"
+                        data-description="{{$folder->description}}"
+                        data-description_en="{{$folder->description_en}}">
+                            {{__('Edit')}}
+                        </button>
+        
+                        <form action="/admin/folders/{{$folder->id}}" method="POST" class="deleteFolderForm">
+                            @csrf
+                            @method('delete')
+                            <input type="hidden" class="folder_id" id="" name="folder_id" value="folder_{{$folder->id}}">
+                            <button class="dropdown-item" type="submit">{{__('Delete')}}</button>
+                        </form>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item" data-toggle="modal" data-target="#fileModal" data-folder_id="{{$folder->id}}" data-sub_folder_id={{$folder->sub_folder_id}}>
+                            {{__('Add File')}}
+                        </button>
+                    </div>
                 </div>
-            </div>
+            @endcan
         </li>
     @endforeach
 
@@ -53,31 +55,34 @@
                 {{$file->title}}.{{$file->type}}
             </a>
 
-            <div class="dropdown">
-                <button class="btn btn-link dropdown shadow-none" type="button" id="dropdownAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                    </svg>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="dropdownAction">
-                    {{-- <a class="dropdown-item" href="/admin/files/{{$file->id}}/edit">{{__('Edit')}}</a> --}}
-                    {{-- <a class="dropdown-item" href="/admin/files/create">{{__('Add File')}}</a> --}}
-                    <button class="dropdown-item" data-toggle="modal" data-target="#fileEditModal" 
-                    data-file_id="{{$file->id}}" 
-                    data-folder_id={{$file->folder_id}}
-                    data-title="{{$file->title}}"
-                    data-description="{{$file->description}}"
-                    data-file_name="{{$file->file_name}}">
-                        {{__('Edit')}}
+            @can('group-admin',  App\Models\Group::find(Auth::user()->group_id))
+                <div class="dropdown">
+                    <button class="btn btn-link dropdown shadow-none" type="button" id="dropdownAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        </svg>
                     </button>
-                    <form action="/admin/files/{{$file->id}}" method="POST" class="deleteFileForm">
-                        @csrf
-                        @method('delete')
-                        <input type="hidden" name="file_id" value="file_{{$file->id}}">
-                        <button class="dropdown-item" type="submit">{{__('Delete')}}</button>
-                    </form>
+                    <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="dropdownAction">
+                        {{-- <a class="dropdown-item" href="/admin/files/{{$file->id}}/edit">{{__('Edit')}}</a> --}}
+                        {{-- <a class="dropdown-item" href="/admin/files/create">{{__('Add File')}}</a> --}}
+                        <button class="dropdown-item" data-toggle="modal" data-target="#fileEditModal" 
+                        data-file_id="{{$file->id}}" 
+                        data-language_id="{{$file->language_id}}" 
+                        data-folder_id={{$file->folder_id}}
+                        data-title="{{$file->title}}"
+                        data-description="{{$file->description}}"
+                        data-file_name="{{$file->file_name}}">
+                            {{__('Edit')}}
+                        </button>
+                        <form action="/admin/files/{{$file->id}}" method="POST" class="deleteFileForm">
+                            @csrf
+                            @method('delete')
+                            <input type="hidden" name="file_id" value="file_{{$file->id}}">
+                            <button class="dropdown-item" type="submit">{{__('Delete')}}</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            @endcan
         </li>
     @endforeach
 

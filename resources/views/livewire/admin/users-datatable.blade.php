@@ -50,6 +50,12 @@
                     </a>
                 </th>
                 <th>
+                    <a wire:click.prevent="sortBy('email_verified_at')" role="button" href="#">
+                        {{__('Verified')}}
+                        @include('parts._sort-icon', ['field' => 'email_verified_at'])
+                    </a>
+                </th>
+                <th>
                     <a wire:click.prevent="sortBy('created_at')" role="button" href="#">
                         {{__('Date Registered')}}
                         @include('parts._sort-icon', ['field' => 'created_at'])
@@ -63,6 +69,18 @@
                     <tr scope="row">
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
+                        <td>
+                            {{-- {{$user->email_verified_at}} --}}
+                            @if ($user->email_verified_at)
+                            <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="text-success bi bi-dot" viewBox="0 0 16 16">
+                                <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                            </svg>
+                            @else
+                            <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="text-danger bi bi-dot" viewBox="0 0 16 16">
+                                <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                            </svg>
+                            @endif
+                        </td>
                         <td>{{$user->created_at->format("M j, Y, g:i A")}}</td>
                         <td>
                             <button 

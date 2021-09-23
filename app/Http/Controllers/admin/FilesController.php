@@ -50,6 +50,7 @@ class FilesController extends Controller
 
             $file = new File(request([
                 'folder_id',
+                'language_id',
                 'title',
                 'description',
                 'file_name',
@@ -133,6 +134,7 @@ class FilesController extends Controller
 
         $fields["title"]       = $request->input("title");
         $fields["description"] = $request->input("description");
+        $fields["language_id"] = $request->input("language_id");
 
         $file->update($fields);
               
@@ -164,6 +166,7 @@ class FilesController extends Controller
 
         return request()->validate([
             'title'        => 'required',
+            'language_id'  => 'required',
             'description'  => '',
             'attachment'   => 'required'
         ]);
@@ -175,6 +178,7 @@ class FilesController extends Controller
 
         return request()->validate([
             'title'        => 'required',
+            'language_id'  => 'required',
             'description'  => '',
             'attachment'   => ''
         ]);

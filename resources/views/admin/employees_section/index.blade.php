@@ -59,6 +59,13 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6 pb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <a class="btn btn-link btn-block" href="/admin/library">المكتبة</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

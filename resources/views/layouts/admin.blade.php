@@ -99,11 +99,11 @@
                     <li class="list-group-item">
                         <a href="/admin/users">{{__('Users')}}</a>
                     </li>
+                
+                    <li class="list-group-item">
+                        <a href="/admin/library">{{__('Library Manager')}}</a>
+                    </li>
                 @endcan
-
-                <li class="list-group-item">
-                    <a href="/admin/library">{{__('Library')}}</a>
-                </li>
                 
                 <li class="list-group-item">
                     <a href="/admin/employees">{{__('Employees Section')}}</a>

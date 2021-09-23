@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.plain')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+            <div class="card border-0 shadow">
+                <div class="card-header border-0">{{ __('Reset Password') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('password.email') }}">
+                    <form class="py-5" method="POST" action="{{ route('password.email') }}">
                         @csrf
 
                         <div class="form-group row">

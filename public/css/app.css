@@ -11047,28 +11047,48 @@ div#app {
 }
 
 .top-logos {
-  height: 10vh;
-  transition: all 0.5s ease-in-out;
+  margin-top: 0;
 }
 
-@media (max-width: 576px) {
+@media (min-width: 768px) {
   .top-logos {
-    height: 27vh;
+    transition: all 0.5s ease-in-out;
   }
 }
 
 .top-logos-hide {
-  height: 0;
-}
-
-.top-logos-show {
-  height: 10vh;
+  margin-top: -110px;
 }
 
 @media (max-width: 576px) {
-  .top-logos-show {
-    height: 27vh;
+  .top-logos-hide {
+    margin-top: -200px;
   }
+}
+
+.top-logos-show {
+  transition: all 0.5s ease-in-out;
+  margin-top: 0;
+}
+
+@media (min-width: 768px) {
+  .dropdown-menu {
+    margin-top: -10px !important;
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) {
+  li.nav-item:hover .dropdown-menu {
+    display: block !important;
+    transition: all 0.5s ease-in-out;
+    transition-delay: 1s;
+  }
+}
+
+.dropdown-item:last-child:hover,
+.dropdown-item:last-child:focus {
+  border-radius: 0 0 5px 5px;
 }
 
 nav.top {

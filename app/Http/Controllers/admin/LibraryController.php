@@ -7,6 +7,7 @@ use App\Models\Library;
 use Illuminate\Http\Request;
 use App\Models\Folder;
 use App\Models\File;
+use App\Models\Language;
 
 class LibraryController extends Controller
 {
@@ -56,13 +57,14 @@ class LibraryController extends Controller
         //     $files = File::whereNull('folder_id')->get();
         // }
 
-        $folders = Folder::where('sub_folder_id', NULL)->get();
+        $folders   = Folder::where('sub_folder_id', NULL)->get();
+        $langauges = Language::all();
 
         // $files   = File::all();
 
         //'files', 'folder_name', 'path', 'crump', 'sub_folder_id', 'folder_id'
 
-        return view('admin.library.index', compact('folders'));
+        return view('admin.library.index', compact('folders', 'langauges'));
     }
 
     /**
@@ -137,10 +139,9 @@ class LibraryController extends Controller
 
     public function sub_folders_files(int $folder_id) {
 
-        $folder  = Folder::find($folder_id);
-        $folders = Folder::where('sub_folder_id', '=', $folder_id)->get();
-        $files   = File::where('folder_id', $folder_id)->get();
-
+        $folder    = Folder::find($folder_id);
+        $folders   = Folder::where('sub_folder_id', '=', $folder_id)->get();
+        $files     = File::where('folder_id', $folder_id)->get();
 
         return view('admin.library.sub_folders_files', compact('folder', 'folders', 'files'));
     }

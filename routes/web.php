@@ -65,11 +65,11 @@ Route::group(['page' => '{page}'], function() {
     Route::get('/pages/{page}', [App\Http\Controllers\PagesController::class, 'index']);
     Route::get('/pages/{page}/{folder}', [App\Http\Controllers\PagesController::class, 'pageWithFiles']);
 
-    Auth::routes();
+    Auth::routes(['verify' => true]);
 });
 
 // Private
-Route::prefix('admin')->middleware('auth')->group(function () {
+Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/', [DashboardController::class, 'index']);
     Route::resource('/dashboard', DashboardController::class, [

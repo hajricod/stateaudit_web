@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="height: 100%">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,7 +22,7 @@
 
     @livewireStyles
 </head>
-<body>
+<body style="height: 100%">
     {{-- login modal --}}
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -108,38 +108,7 @@
             <img class="logo" src="{{ asset('/images/saiLogo.png')}}" alt="logo">
         </div>
     </div>
-    <div id="app"> 
-        <div id="top-logos" class="top-logos container-fluid bg-white d-md-flex justify-content-around align-items-center d-sm-none d-none d-md-block">
-            <a class="navbar-brand mr-0" href="/">
-                <img src="{{asset('/images/saiText.png')}}" alt="SAI Text logo" width="250">
-                
-            </a>
-            <a class="navbar-brand mr-0" href="/">
-                <img src="{{asset('/images/saiLogo.png')}}" alt="SAI logo" width="100">
-                
-            </a>
-            <a class="navbar-brand mr-0" href="/">
-                <img src="{{asset('/images/2040Logo.png')}}" alt="Oman Vision 2040 logo" width="150">
-                
-            </a>
-        </div>
-
-        <div id="top-logos" class="top-logos container-fluid bg-white d-block  d-md-none">
-           
-            <a class="navbar-brand mr-0 text-center d-block" href="/">
-                <img src="{{asset('/images/saiLogo.png')}}" alt="SAI logo" width="50">
-                
-            </a>
-            <a class="navbar-brand mr-0 text-center d-block" href="//">
-                <img src="{{asset('/images/saiText.png')}}" alt="SAI Text logo" width="150">
-                
-            </a>
-            <a class="navbar-brand mr-0 text-center d-block" href="//">
-                <img src="{{asset('/images/2040Logo.png')}}" alt="Oman Vision 2040 logo" width="100">
-                
-            </a>
-        </div>
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm bg-white border-0">
+    <nav class="navbar navbar-expand-md navbar-light shadow-sm bg-white border-0 fixed-top">
             
             <div class="container">
                 <div class="d-block d-md-none bg-light w-100 bg-white">
@@ -250,14 +219,46 @@
                 </div>
             </div>
         </nav>
+    <div id="app" class="h-100 d-flex align-items-center justify-content-center"> 
+        {{-- <div id="top-logos" class="top-logos container-fluid bg-white d-md-flex justify-content-around align-items-center d-sm-none d-none d-md-block">
+            <a class="navbar-brand mr-0" href="/">
+                <img src="{{asset('/images/saiText.png')}}" alt="SAI Text logo" width="250">
+                
+            </a>
+            <a class="navbar-brand mr-0" href="/">
+                <img src="{{asset('/images/saiLogo.png')}}" alt="SAI logo" width="100">
+                
+            </a>
+            <a class="navbar-brand mr-0" href="/">
+                <img src="{{asset('/images/2040Logo.png')}}" alt="Oman Vision 2040 logo" width="150">
+                
+            </a>
+        </div>
 
-        @yield('banner')
+        <div id="top-logos" class="top-logos container-fluid bg-white d-block  d-md-none">
+           
+            <a class="navbar-brand mr-0 text-center d-block" href="/">
+                <img src="{{asset('/images/saiLogo.png')}}" alt="SAI logo" width="50">
+                
+            </a>
+            <a class="navbar-brand mr-0 text-center d-block" href="//">
+                <img src="{{asset('/images/saiText.png')}}" alt="SAI Text logo" width="150">
+                
+            </a>
+            <a class="navbar-brand mr-0 text-center d-block" href="//">
+                <img src="{{asset('/images/2040Logo.png')}}" alt="Oman Vision 2040 logo" width="100">
+                
+            </a>
+        </div> --}}
         
-        <main class="py-lg-4 py-1">
+
+        {{-- @yield('banner') --}}
+        
+        {{-- <main class="py-lg-4 py-1"> --}}
             @yield('content')
-        </main>
+        {{-- </main> --}}
     </div>
-    <footer>
+    {{-- <footer>
         <div class="links-holder">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
@@ -290,25 +291,23 @@
             </div>
         </div>
         <p class="text-center">{{ __('State Audit Institution') }} &copy; {{ now()->year}}</p>
-    </footer>
+    </footer> --}}
     <script src="{{ asset('js/echo.js') }}" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
        $().ready(function() {
-           let position = 0;
-           $(window).scroll(function() {
-                if($(this).scrollTop() > 0) {
-                    // $('.top-logos').removeClass('top-logos-show');
-                    $('.top-logos').addClass('top-logos-hide');
-                    $('.navbar').addClass('fixed-top');
-                    $('.navbar').addClass('top');
-                } else {
-                    $('.top-logos').removeClass('top-logos-hide');
-                    // $('.top-logos').addClass('top-logos-show');
-                    $('.navbar').removeClass('fixed-top');
-                    $('.navbar').removeClass('top');
-                }
-            });
+        //    let position = 0;
+        //    $(window).scroll(function() {
+        //         if($(this).scrollTop() > 0) {
+        //             $('.top-logos').addClass('top-logos-hide');
+        //             $('.navbar').addClass('fixed-top');
+        //             $('.navbar').addClass('top');
+        //         } else {
+        //             $('.top-logos').removeClass('top-logos-hide');
+        //             $('.navbar').removeClass('fixed-top');
+        //             $('.navbar').removeClass('top');
+        //         }
+        //     });
 
             setTimeout(() => {
                 $(".loading").addClass("loader-exit");
@@ -330,15 +329,8 @@
             
             $("#btnLogin").click(function (event) {
 
-                //stop submit the form, we will post it manually.
                 event.preventDefault();
 
-
-                // Get form
-                // var form = $('#fileUploadForm')[0];
-
-                // Create an FormData object 
-                // var data = new FormData(form);
                 var data = $('#loginForm').serialize();
                 var btnLogin = $("#btnLogin");
                 var txtEmail = $("#email").val();
@@ -346,14 +338,9 @@
                 var msgLogin = $('#msgLogin');
                 var msgLoginEmpty = $('#msgLoginEmpty');
 
-                // If you want to add an extra field for the FormData
-                // data.append("CustomField", "This is some extra data, testing");
-
-                // disabled the submit button and add spiner
                 btnLogin.prop("disabled", true);
                 btnLogin.append('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
 
-                // Reset messages
                 msgLogin.removeClass("d-inline-block");
                 msgLoginEmpty.removeClass("d-inline-block");
 
@@ -374,7 +361,6 @@
                         success: function (res) {
 
                             if(res == 1) {
-                                // window.location.replace("{{url(app()->getLocale(),'admin/dashboard')}}");
                                 window.location.replace("{{route('dashboard')}}");
                             }else if(res == 3) {
                                 btnLogin.prop("disabled", false);

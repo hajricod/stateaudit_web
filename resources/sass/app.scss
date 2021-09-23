@@ -150,33 +150,61 @@ div#app {
 }
 
 .top-logos {
-    height: 10vh;
-    transition: all .5s ease-in-out;
+    // height: 10vh;
+    // transition: all .5s ease-in-out;
+    margin-top: 0;
+    // transition: all .5s ease-in-out;
 
-    @media (max-width: $sm) {
-        height: 27vh;
+    @media (min-width: $md) {
+        transition: all .5s ease-in-out;
     }
 }
 
 .top-logos-hide {
-    height: 0;
+    // height: 0;
+    margin-top: -110px;
+
+    @media (max-width: $sm) {
+        margin-top: -200px;
+    }
+    
 }
 
 .top-logos-show {
-    height: 10vh;
+    // height: auto;
+    transition: all .5s ease-in-out;
+    margin-top: 0;
 
     @media (max-width: $sm) {
-        height: 27vh;
+        // height: 27vh;
     }
 }
 
-nav.top {
-    // background-color: #710f11 !important;
-    transition: all .5s ease-in-out;
+.dropdown-menu {
+    
 
-    // a {
-    //     color: $white!important;
-    // }
+    @media (min-width: $md) {
+        margin-top: -10px!important;
+        display: none!important;
+    }
+}
+
+
+li.nav-item:hover .dropdown-menu {
+
+    @media (min-width: $md) {
+        display: block!important;
+        transition: all .5s ease-in-out;
+        transition-delay: 1s;
+    }
+}
+
+.dropdown-item:last-child:hover, .dropdown-item:last-child:focus {
+    border-radius: 0 0 5px 5px;
+}
+
+nav.top {
+    transition: all .5s ease-in-out;
 }
 
 .circle {

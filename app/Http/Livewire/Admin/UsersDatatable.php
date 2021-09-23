@@ -14,7 +14,7 @@ class UsersDatatable extends Component
     protected $paginationTheme = 'bootstrap';
     public    $search          = '';
     public    $perPage         = 10;
-    public    $sortField       = "created_at";
+    public    $sortField       = "email_verified_at";
     public    $sortAsc         = false;
 
     public function clear() {
