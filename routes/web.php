@@ -29,6 +29,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Site\ComplaintController;
 use App\Http\Controllers\Site\ContactusController;
 use App\Http\Controllers\Site\FaqController;
+use App\Http\Controllers\Site\FdgoController;
 use App\Http\Controllers\Site\FeedbackController;
 use App\Http\Controllers\Site\LibraryController;
 use App\Http\Controllers\Site\MediaController;
@@ -77,6 +78,7 @@ Route::get('/media/years/{id}', [MediaController::class, 'years']);
 Route::get('/media/files/{id}', [MediaController::class, 'files'])->name('media-files');
 Route::resource('/feedback', FeedbackController::class);
 Route::get('/faq', [FaqController::class, 'index']);
+Route::get('/fdgo', [FdgoController::class, 'index']);
 
 Route::get('/mailable', function () {
     $complaint = App\Models\Complaint::find(71);

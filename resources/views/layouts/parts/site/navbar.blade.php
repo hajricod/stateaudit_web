@@ -22,8 +22,14 @@
                         </li>
                     @else
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{-- <a class="nav-link d-inline-block" href="#">
                                 {{app()->getLocale() == 'ar'? $link->title : $link->title_en}}
+                            </a> --}}
+                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{app()->getLocale() == 'ar'? $link->title : $link->title_en}}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
+                                    <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
+                                </svg>
                             </a>
                             <div class="dropdown-menu {{app()->getLocale() == 'ar'? 'text-right dropdown-menu-end': 'text-left dropdown-menu-start'}} shadow" aria-labelledby="navbarDropdown">
                                 @foreach ($headerSublinks as $sublink)
