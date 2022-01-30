@@ -10903,6 +10903,11 @@ a.text-dark:focus {
   }
 }
 
+@font-face {
+  font-family: tajwal_regular;
+  src: url(/fonts/Tajawal-Regular.ttf?6b10b55e4df612910047b7e5d596a9d5);
+}
+
 .listPadding li {
   padding-top: 15px;
 }
@@ -10922,6 +10927,7 @@ a.text-dark:focus {
 }
 
 body {
+  font-family: tajwal_regular;
   background-image: url(/images/architcture.png?ef8927a5d7d2c4d9915c64ca1059f57e);
   background-position: center;
   background-size: cover;

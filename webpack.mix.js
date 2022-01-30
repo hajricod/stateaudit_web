@@ -13,7 +13,9 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     // .js('node_modules/laravel-echo/dist/echo.js', 'public/js')
+    .js('resources/js/new.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
+    .sass('resources/sass/new.scss', 'public/css')
     .sass('resources/sass/admin.scss', 'public/css');
 
 // mix.copyDirectory('node_modules/tinymce/icons', 'public/node_modules/tinymce/icons');

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Gate;
 
 class UsersController extends Controller
 {
-    public function isAuthorized() {
+    protected function isAuthorized() {
 
         $group = Group::find(Auth::user()->group_id);
 
@@ -28,8 +28,9 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
         $this->isAuthorized();
+        checkRole('view');
 
         $users = User::orderBy('created_at', 'desc')->paginate(10)->onEachSide(1);
         return view('admin.users.index', compact('users'));
@@ -140,8 +141,7 @@ class UsersController extends Controller
     protected function validateUser($request) {
         $fields = [
             'name'         => 'required',
-            'group_id'     => 'required',
-            'password'     => 'string|min:8|confirmed',
+            'password'     => 'string|min:8|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
         ];
 
         if(!$request->password) {

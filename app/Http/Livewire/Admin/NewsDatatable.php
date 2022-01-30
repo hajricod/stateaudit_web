@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Http\Controllers\admin\NewsController;
+use App\Http\Controllers\Admin\NewsController;
 use App\Models\News;
 use Livewire\Component;
 use Livewire\WithPagination;

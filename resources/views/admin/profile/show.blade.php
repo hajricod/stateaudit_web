@@ -57,6 +57,13 @@
                         @error('password')
                             <p class="text-danger"> {{ $message }}</p>
                         @enderror
+                        @error('password')
+                            <span class="text-danger" role="alert">
+                                <strong>
+                                    {{__('Your password must be more than 8 characters long, should contain at least 1 Uppercase, 1 Lowercase, 1 Numeric and 1 special character')}}
+                                </strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -76,12 +83,12 @@
                         <p class="form-control" readonly>{{$user->created_at->format("M j, Y, g:i A")}} </p>
                     </div>
                 </div>
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <div class="form-group">
                         <label for="created_at">{{__('Group')}}</label>
                         <p class="form-control" readonly>{{$group->title}}</p>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <hr>
             <div class="row">
@@ -92,6 +99,47 @@
                         
                         <button type="submit" class="btn btn-primary btn-block d-none">{{__('Save')}}</button>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {{-- <table class="table border">
+                        <tr>
+                            <th>{{__('Group')}}</th>
+                            <th>{{__('Permissions')}}</th>
+                        </tr>
+                    
+                        @foreach ($userRoles as $userrole)
+                            <tr>
+                                <td>{{$userrole->group}}</td>
+                                <td>{{$userrole->role}}</td>
+                            </tr>
+                        @endforeach
+                    </table> --}}
+                    <table class="table border">
+                        <tr>
+                            <th>{{__('Group')}}</th>
+                            <th>{{__('Permissions')}}</th>
+                        </tr>
+                    
+                        @foreach ($permissions as $group => $roles)
+                            <tr>
+                                <td>{{Str::upper($group)}}</td>
+                                <td>
+                                    @foreach ($roles as $role)
+                                        @foreach ($role as $item)
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle text-primary" viewBox="0 0 16 16">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                                            </svg>
+                                            <label>{{__($item->role)}}</label>
+                                            <br>
+                                        @endforeach
+                                    @endforeach
+                                </td>
+                            </tr>
+                        @endforeach
+                    </table>
                 </div>
             </div>
         </form>        

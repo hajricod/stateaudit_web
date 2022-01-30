@@ -1,11 +1,11 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12 bg-white pt-5 pb-3 min-h-80">
+        <div class="col-md-12 pt-5 pb-3 min-h-80">
             <h4>{{__('News')}}</h4>
             <hr>
-            <div class="row d-flex  align-items-end">
+            <div class="row d-flex align-items-end">
                 <div class="col-md-4">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <div class="d-flex">
                             <input type="text" wire:model="search" class="form-control w-100" placeholder="{{__('Search')}}">
                             <button wire:click="clear" class="btn bg-transparent p-1 shadow-none" style="margin-{{app()->getLocale() == 'ar'? 'right':'left'}}: -40px; z-index: 100;">                  
@@ -26,7 +26,7 @@
                             <option value="statement"> {{__('Statement')}}</option>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="year">{{__('Year')}}</label>
                         <select wire:model="year" class="form-control w-auto d-inline-block" id="year" name="year">
                             <option selected value="">{{__('All')}}</option>
@@ -42,9 +42,9 @@
             <hr>
 
             <div class="min-h-50">
-                <ul class="list-group list-group-flush pr-0">
+                <ul class="list-group list-group-flush p-0">
                     @forelse ($news as $new)
-                        <a href="/news/{{$new->id}}" class="list-group-item list-group-item-action">
+                        <a href="/news/{{$new->id}}" class="list-group-item list-group-item-action bg-transparent">
                             <div class="row">
                                 <div class="col-md-4">
                                     <img

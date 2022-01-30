@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Audio;
@@ -11,22 +11,9 @@ use App\Models\ProgramCategory;
 use App\Models\ProgramList;
 use App\Models\Video;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Storage;
-use App\Models\Group;
 
 class MediaController extends Controller
 {
-    public function isAuthorized() {
-
-        $group = Group::find(Auth::user()->group_id);
-
-        if (Gate::denies('group-media', $group)) {
-
-            abort(403);
-        }
-    }
     
     /**
      * Display a listing of the resource.
@@ -35,6 +22,8 @@ class MediaController extends Controller
      */
     public function index()
     {
+        checkPermission('media.view');
+
         $categories = ProgramCategory::all();
 
         return view('admin.media.index', compact('categories'));
@@ -42,7 +31,9 @@ class MediaController extends Controller
 
     public function sections(int $id)
     {
-        $title = ProgramCategory::where('id', $id)->get()->pluck('title')[0];
+        checkPermission('media.view');
+
+        $title    = ProgramCategory::where('id', $id)->get()->pluck('title')[0];
         $programs = Program::where('program_cate_id',$id)->get();
 
         return view('admin.media.sections', compact('programs', 'title'));
@@ -50,14 +41,18 @@ class MediaController extends Controller
 
     public function list(int $id)
     {
+        checkPermission('media.view');
+
         $program = Program::find($id);
-        $list = Program::find($id)->list;
+        $list    = Program::find($id)->list;
 
         return view('admin.media.list', compact('list', 'program'));
     }
 
     public function videos(int $prog_id = null, int $list_id = null, Request $request)
     {
+        checkPermission('media.view');
+
         // which program ?
         $program = Program::find($prog_id);
 
@@ -76,6 +71,8 @@ class MediaController extends Controller
 
     public function audio(int $prog_id = null) {
 
+        checkPermission('media.view');
+
         $program = Program::find($prog_id);
         $audios  = Audio::where('program_id', $prog_id)->paginate(10);
 
@@ -83,6 +80,8 @@ class MediaController extends Controller
     }
 
     public function files(int $prog_id = null) {
+
+        checkPermission('media.view');
 
         $program = Program::find($prog_id);
         $files  = MediaFile::where('program_id', $prog_id)->paginate(10);

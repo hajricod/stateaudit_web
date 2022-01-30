@@ -1,14 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-
+    
 <div class="container">
-    <div class="d-none alert alert-success alert-dismissible fade show px-3" role="alert" id="response_success">
-        <p id="msg_success" class="mb-0"></p>
-    </div>
-    <div class="d-none alert alert-danger alert-dismissible fade show px-3" role="alert" id="response_error">
-        <p id="msg_error" class="mb-0"></p>
-    </div>
+
 
     <div class="row">
         <div class="col-md-12 pb-3" id="tables">
@@ -56,6 +51,14 @@
                                     <label for="url">{{__('URL')}}</label>
                                     <input type="text" name="url" class="form-control">
                                 </div>
+                                <div id="url" class="form-group text-left" dir="ltr">
+                                    <label for="sort">{{__('Sort')}}</label>
+                                    <input type="number" name="sort" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="status">{{__('Status')}}</label>
+                                    <input type="checkbox" name="status" checked>
+                                </div>
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -75,6 +78,8 @@
                         <th>العنوان</th>
                         <th>Title</th>
                         <th>URL</th>
+                        <th>{{__('Sort')}}</th>
+                        <th>{{__('Status')}}</th>
                         <th>{{__('Actions')}}</th> 
                     </tr>
                 </thead>
@@ -100,6 +105,14 @@
                                     <div class="group-control">
                                         <input type="text" class="form-control" name="url" value="{{$item->url}}" dir="ltr">
                                     </div>
+                                </td>
+                                <td style="width: 100px">
+                                    <div class="group-control">
+                                        <input type="number" class="form-control" name="sort" value="{{$item->sort}}" dir="ltr">
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <input type="checkbox" class="" id="{{$item->id}}" name="status" {{$item->status == 1 ? 'checked' : ''}}>
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="actions" dir="ltr">

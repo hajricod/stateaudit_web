@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
@@ -18,10 +18,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $comp_count    = DB::table('complaints')->count();
-        $comp_new      = DB::table('complaints')->where('status', '0')->count();
-        $comp_on_prog  = DB::table('complaints')->where('status', '1')->count();
-        $comp_archived = DB::table('complaints')->where('status', '2')->count();
+        $comp_new      = DB::table('complaints')->where('status_id', '1')->count();
+        $comp_archived = DB::table('complaints')->where('status_id', '4')->count();
+        $comp_count    = DB::table('complaints')->count() - $comp_archived;
         $comp_leatest  = DB::table('complaints')->pluck('created_at')->last();
         $days          = $this->countDays($comp_leatest);
 
@@ -37,7 +36,6 @@ class DashboardController extends Controller
 
         return view('admin.dashboard.index', compact([
             'comp_count',
-            'comp_on_prog',
             'comp_new',
             'comp_archived',
             'days',

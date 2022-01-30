@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\EmployeeSection;
@@ -15,6 +15,8 @@ class EmployeesSectionController extends Controller
      */
     public function index()
     {
+        checkPermission('public.view');
+        
         return view('admin.employees_section.index');
     }
 

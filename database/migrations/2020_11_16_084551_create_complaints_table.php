@@ -25,7 +25,7 @@ class CreateComplaintsTable extends Migration
             $table->string('attch2')->nullable();
             $table->string('attch3')->nullable();
             $table->string('attch4')->nullable();
-            $table->char()->default(1);
+            $table->unsignedBigInteger('status_id')->default(1);
             $table->ipAddress('ip')->nullable();
             $table->timestamps();
         });

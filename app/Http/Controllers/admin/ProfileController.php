@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -50,6 +51,34 @@ class ProfileController extends Controller
      */
     public function show()
     {
+        $user_id = auth()->user()->id;
+        $userRoles = UserRole::join('roles', 'user_role.role_id', '=', 'roles.id')
+        ->join('groups', 'user_role.group_id', '=', 'groups.id')
+        ->select('user_role.group_id','groups.code as group', 'roles.code as role')
+        ->where('user_role.user_id', $user_id)
+        ->orderBy('group_id')
+        ->get();
+
+        $groups = $userRoles->pluck('group', 'group_id')->unique();
+
+        $permissions = [];
+
+        foreach ($groups as $key => $value) {
+            $permissions[$value] = [
+                UserRole::join('roles', 'user_role.role_id', '=', 'roles.id')
+                ->join('groups', 'user_role.group_id', '=', 'groups.id')
+                ->select('groups.code as group', 'roles.code as role')
+                ->where([
+                    'user_id' => $user_id,
+                    'group_id'=> $key
+                ])
+                ->orderBy('group_id')
+                ->get()
+            ];
+        }
+
+        // dd($permissions);
+
         $fields = [
             'id',
             'name',
@@ -61,7 +90,7 @@ class ProfileController extends Controller
         $user = User::find(Auth::user()->id);
         $group = Group::find($user->group_id);
 
-        return view('admin.profile.show', compact('user', 'group'));
+        return view('admin.profile.show', compact('user', 'group', 'userRoles', 'permissions'));
     }
 
     /**
@@ -95,7 +124,7 @@ class ProfileController extends Controller
         $data = [];
         $fields = [
             'name'         => 'required',
-            'password'     => 'string|min:8|confirmed',
+            'password'     => 'string|min:8|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
         ];
 
         if(!$request->password) {

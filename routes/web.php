@@ -1,28 +1,39 @@
 <?php
 
 use App\Events\ComplaintProcessed;
-use App\Http\Controllers\admin\AudiosController;
-use App\Http\Controllers\admin\DashboardController;
-use App\Http\Controllers\admin\ComplaintController;
-use App\Http\Controllers\admin\EmployeesSectionController;
-use App\Http\Controllers\admin\FeedbackController;
-use App\Http\Controllers\admin\NewsController;
-use App\Http\Controllers\admin\UsersController;
-use App\Http\Controllers\admin\LibraryController;
-use App\Http\Controllers\admin\FoldersController;
-use App\Http\Controllers\admin\FilesController;
-use App\Http\Controllers\admin\FooterController;
-use App\Http\Controllers\admin\HeaderController;
-use App\Http\Controllers\admin\MediaController;
-use App\Http\Controllers\admin\MediaFilesController;
-use App\Http\Controllers\admin\NotificationsController;
-use App\Http\Controllers\admin\ProfileController;
-use App\Http\Controllers\admin\ProgramListsController;
-use App\Http\Controllers\admin\PromotionsController;
-use App\Http\Controllers\admin\VideosController;
-use App\Http\Controllers\admin\FaqController;
-use App\Http\Controllers\admin\FaqgroupController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\Admin\AudiosController;
+use App\Http\Controllers\Admin\BranchesController as AdminBranchesController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ComplaintController as AdminComplaintController;
+use App\Http\Controllers\Admin\EmployeesSectionController;
+use App\Http\Controllers\Admin\FeedbackController as AdminFeedbackController;
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\LibraryController as AdminLibraryController;
+use App\Http\Controllers\Admin\FoldersController;
+use App\Http\Controllers\Admin\FilesController;
+use App\Http\Controllers\Admin\FooterController;
+use App\Http\Controllers\Admin\HeaderController;
+use App\Http\Controllers\Admin\MediaController as AdminMediaController;
+use App\Http\Controllers\Admin\MediaFilesController;
+use App\Http\Controllers\Admin\NotificationsController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\ProgramListsController;
+use App\Http\Controllers\Admin\PromotionsController;
+use App\Http\Controllers\Admin\VideosController;
+use App\Http\Controllers\Admin\FaqController as AdminFaqController;
+use App\Http\Controllers\Admin\FaqgroupController;
+use App\Http\Controllers\Admin\StandardsController as AdminStandardsController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Site\ComplaintController;
+use App\Http\Controllers\Site\ContactusController;
+use App\Http\Controllers\Site\FaqController;
+use App\Http\Controllers\Site\FeedbackController;
+use App\Http\Controllers\Site\LibraryController;
+use App\Http\Controllers\Site\MediaController;
+use App\Http\Controllers\Site\NewsController;
+use App\Http\Controllers\Site\StandardsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Gate;
@@ -40,33 +51,40 @@ use App\Models\Group;
 */
 
 // Public
-Route::group(['page' => '{page}'], function() {
 
-    Route::get('/', function () {
-        return view('home');
-    });
 
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
-
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    
-
-    Route::resource('/complaint', App\Http\Controllers\ComplaintController::class);
-    Route::resource('/news', App\Http\Controllers\NewsController::class);
-    Route::resource('/media', App\Http\Controllers\MediaController::class);
-    Route::get('/media/list/{id}', [App\Http\Controllers\MediaController::class, 'list']);
-    Route::get('/media/videos/{id}', [App\Http\Controllers\MediaController::class, 'videos']);
-    Route::get('/media/videos/{prog_id}/{list_id?}', [App\Http\Controllers\MediaController::class, 'videos']);
-    Route::get('/media/videosByYear/{prog_id}/{year}', [App\Http\Controllers\MediaController::class, 'videosByYear'])->name('videosByYear');
-    Route::get('/media/years/{id}', [App\Http\Controllers\MediaController::class, 'years']);
-    Route::get('/media/files/{id}', [App\Http\Controllers\MediaController::class, 'files'])->name('media-files');
-    Route::resource('/feedback', App\Http\Controllers\FeedbackController::class);
-
-    Route::get('/pages/{page}', [App\Http\Controllers\PagesController::class, 'index']);
-    Route::get('/pages/{page}/{folder}', [App\Http\Controllers\PagesController::class, 'pageWithFiles']);
-
-    Auth::routes(['verify' => true]);
+Route::get('/', function () {
+    return view('home');
 });
+
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/library', [LibraryController::class, 'index']);
+Route::get('/library/sub_folders_files/{id}', [LibraryController::class, 'sub_folders_files']);
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
+Route::resource('/complaint', ComplaintController::class)->only([
+    'create','store'
+]);
+Route::get('/complaint/success/{id}', [ComplaintController::class, 'success']);
+Route::resource('/news', NewsController::class);
+Route::resource('/media', MediaController::class);
+Route::get('/media/list/{id}', [MediaController::class, 'list']);
+Route::get('/media/videos/{id}', [MediaController::class, 'videos']);
+Route::get('/media/videos/{prog_id}/{list_id?}', [MediaController::class, 'videos']);
+Route::get('/media/videosByYear/{prog_id}/{year}', [MediaController::class, 'videosByYear'])->name('videosByYear');
+Route::get('/media/years/{id}', [MediaController::class, 'years']);
+Route::get('/media/files/{id}', [MediaController::class, 'files'])->name('media-files');
+Route::resource('/feedback', FeedbackController::class);
+Route::get('/faq', [FaqController::class, 'index']);
+
+Route::get('/mailable', function () {
+    $complaint = App\Models\Complaint::find(71);
+
+    return new App\Mail\NewComplaint($complaint);
+});
+
+Auth::routes(['verify' => true]);
 
 // Private
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
@@ -77,32 +95,48 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
             'index' => 'dashboard'
         ]
     ]);
-    Route::resource('/complaint', ComplaintController::class);
-    Route::resource('/news', NewsController::class);
+    Route::resource('/complaint', AdminComplaintController::class);
+    Route::resource('/news', AdminNewsController::class);
     Route::resource('/users', UsersController::class);
-    Route::resource('/library', LibraryController::class);
+    Route::resource('/library', AdminLibraryController::class);
     Route::resource('/folders', FoldersController::class);
     Route::resource('/files', FilesController::class);
     Route::resource('/footer', FooterController::class);
     Route::resource('/header', HeaderController::class);
-    Route::resource('/feedback', FeedbackController::class);
+    Route::resource('/feedback', AdminFeedbackController::class);
     Route::resource('/notifications', NotificationsController::class);
     Route::resource('/employees', EmployeesSectionController::class);
     Route::resource('/promotions', PromotionsController::class);
     Route::resource('/videos', VideosController::class);
     Route::resource('/audios', AudiosController::class);
-    Route::resource('/media', MediaController::class);
+    Route::resource('/media', AdminMediaController::class);
     Route::resource('/media_files', MediaFilesController::class);
     Route::resource('/media/lists', ProgramListsController::class);
-    Route::resource('/faq', FaqController::class);
+    Route::resource('/faq', AdminFaqController::class);
     Route::resource('/faqgroup', FaqgroupController::class);
+    Route::resource('/branches', AdminBranchesController::class)->except([
+        'show'
+    ]);
+    
 
-    Route::get('/media/sections/{id}', [MediaController::class, 'sections'])->name('media-sections');
-    Route::get('/media/list/{id}', [MediaController::class, 'list'])->name('media-list');
-    Route::get('/media/list/videos/{id}', [MediaController::class, 'listVideos'])->name('media-list-videos');
-    Route::get('/media/videos/{prog_id}/{list_id?}', [MediaController::class, 'videos'])->name('media-videos');
-    Route::get('/media/audios/{id}', [MediaController::class, 'audio'])->name('media-audio');
-    Route::get('/media/files/{id}', [MediaController::class, 'files'])->name('media-files');
+    Route::prefix('standards/')->group(function () {
+        Route::get('', [AdminStandardsController::class, 'index']);
+        Route::post('/store_folder', [AdminStandardsController::class, 'storeFolder']);
+        Route::put('/update_folder/{id}', [AdminStandardsController::class, 'updateFolder']);
+        Route::delete('/destroy_folder/{id}', [AdminStandardsController::class, 'destroyFolder']);
+        Route::get('sub_folders_files/{id}', [AdminStandardsController::class, 'sub_folders_files']);
+        Route::post('/store_file', [AdminStandardsController::class, 'storeFile']);
+        Route::put('/update_file/{id}', [AdminStandardsController::class, 'updateFile']);
+        Route::delete('/destroy_file/{id}', [AdminStandardsController::class, 'destroyFile']);
+    });
+    
+
+    Route::get('/media/sections/{id}', [AdminMediaController::class, 'sections'])->name('media-sections');
+    Route::get('/media/list/{id}', [AdminMediaController::class, 'list'])->name('media-list');
+    Route::get('/media/list/videos/{id}', [AdminMediaController::class, 'listVideos'])->name('media-list-videos');
+    Route::get('/media/videos/{prog_id}/{list_id?}', [AdminMediaController::class, 'videos'])->name('media-videos');
+    Route::get('/media/audios/{id}', [AdminMediaController::class, 'audio'])->name('media-audio');
+    Route::get('/media/files/{id}', [AdminMediaController::class, 'files'])->name('media-files');
     Route::get('/profile/{profile?}', [ProfileController::class, 'show'])->name('profile');
     Route::get('/download/{dir?}/{file?}', [FilesController::class, 'downloadFile'])->name('download');
     
@@ -110,12 +144,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
         'show'
     ]);
     
-    // data
-    Route::get('/complaint_data', [App\Http\Controllers\admin\ComplaintController::class, 'fetch_data']);
-    Route::get('/users_data', [App\Http\Controllers\admin\UsersController::class, 'fetch_data']);
-    Route::get('/news_data', [App\Http\Controllers\admin\NewsController::class, 'fetch_data']);
-    Route::get('/promotion_data', [App\Http\Controllers\admin\PromotionsController::class, 'fetch_data']);
-    Route::get('/sub_folders_files/{id}', [LibraryController::class, 'sub_folders_files']);
+    Route::get('/sub_folders_files/{id}', [AdminLibraryController::class, 'sub_folders_files']);
     Route::get('/footerLinks/{id?}', [FooterController::class, 'footerLinks'])->name('footer_links');
     Route::get('/headerSublinks/{id?}', [HeaderController::class, 'headerSublinks'])->name('header_links');
 
@@ -147,11 +176,10 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     
 });
 
-// Route::get('/download/{file}', [ComplaintController::class, 'downloadFile'])->name('download');
 Route::get('/language', [LanguageController::class, 'setLang'])->name('language');
 Route::get('/languageGet', [LanguageController::class, 'getLang'])->name('languageGet');
 
-Route::post('/check', [App\Http\Controllers\admin\UsersController::class, 'check'])->name('checkLogin');
+Route::post('/check', [UsersController::class, 'check'])->name('checkLogin');
 
 
 Route::get('event', function() {
@@ -161,3 +189,10 @@ Route::get('event', function() {
 Route::get('listen', function() {
     return view('listen');
 });
+
+
+Route::resource('standards', StandardsController::class)->only([
+    'index'
+]);
+Route::get('standards/sub_folders_files/{id}', [StandardsController::class, 'sub_folders_files']);
+Route::get('contact_us', [ContactusController::class, 'index']);

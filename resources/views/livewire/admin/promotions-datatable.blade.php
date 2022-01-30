@@ -32,6 +32,13 @@
         <div class="col-md-9">
             <div class="form-group">
                 <div class="d-flex justify-content-end">
+                    <select wire:model="promotionCategory" class="form-control w-auto" name="perPage" id="perPage">
+                        <option value="">{{__('All')}}</option>
+                        @foreach ($promotionCategories as $category)
+                            <option value="{{$category->id}}"> {{lang() == 'ar'? $category->title : $category->title_en}}</option>
+                        @endforeach
+                    </select>
+                    <span class="mx-1"></span>
                     <select wire:model="perPage" class="form-control w-auto" name="perPage" id="perPage">
                         <option value="10">10</option>
                         <option value="15">15</option>
@@ -64,9 +71,9 @@
                     </a>
                 </th>
                 <th>
-                    <a wire:click.prevent="sortBy('created_at')" role="button" href="#">
-                        {{__('Date')}}
-                        @include('parts._sort-icon', ['field' => 'created_at'])
+                    <a wire:click.prevent="sortBy('promotion_categories_id')" role="button" href="#">
+                        {{__('Category')}}
+                        @include('parts._sort-icon', ['field' => 'promotion_categories_id'])
                     </a>
                 </th>
                 <th></th>
@@ -78,7 +85,7 @@
                         <td>{{$promotion->title}}</td>
                         <td>{{$promotion->start_on->format("M j, Y, g:i A")}}</td>
                         <td>{{$promotion->end_on->format("M j, Y, g:i A")}}</td>
-                        <td>{{$promotion->created_at->format("M j, Y, g:i A")}}</td>
+                        <td>{{$promotion->promotionCategory->title}}</td>
                         <td>
                             <button 
                             class="btn btn-link btnDelete" 

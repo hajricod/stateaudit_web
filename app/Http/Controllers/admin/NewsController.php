@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
@@ -29,7 +29,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $this->isAuthorized();
+        checkPermission('media.view');
         
         return view('admin.news.index');
     }

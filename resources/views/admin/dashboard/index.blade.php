@@ -8,19 +8,15 @@
         <div class="col-md-4 p-2 d-flex">
             <div class="card w-100">
                 <h5 class="card-header">{{__('Complaints')}}</h5>
-                <div class="card-body">
+                <div class="card-body p-0">
                     <ul class="list-group list-group-flush pr-0">
+                        <li class="list-group-item d-flex justify-content-between align-items-center bg-info text-white">
+                            <h5 class="m-0">{{__('New Complaints')}}</h5>
+                            <span class="badge badge-light badge-pill d-flex align-items-center justify-content-center" style="font-size: 1em">{{$comp_new}}</span>
+                        </li>
                         <li class="list-group-item d-flex justify-content-between align-items-end">
                             {{__('Complaints Received')}}
                             <span class="badge badge-primary badge-pill">{{$comp_count}}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-end">
-                            {{__('New Complaints')}}
-                            <span class="badge badge-primary badge-pill">{{$comp_new}}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-end">
-                            {{__('On Progress Complaints')}}
-                            <span class="badge badge-primary badge-pill">{{$comp_on_prog}}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-end">
                             {{__('Archived Complaints')}}

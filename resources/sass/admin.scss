@@ -7,6 +7,11 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+@font-face {
+    font-family: tajwal_regular;
+    src: url(../fonts/Tajawal-Regular.ttf);
+}
+
 $xl: 1200px;
 $lg: 992px;
 $md: 768px;
@@ -15,7 +20,9 @@ $sm: 576px;
 $main: #710f11;
 
 body {
-    background-image: url(../img/architcture.png);
+    font-family: tajwal_regular;
+    // background-image: url(../img/architcture.png);
+    background-color: rgb(237 237 237);
     background-position: center;
     background-size: cover;
     background-attachment: fixed;

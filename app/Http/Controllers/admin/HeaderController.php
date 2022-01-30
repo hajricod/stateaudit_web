@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\HeaderLink;
@@ -19,11 +19,11 @@ class HeaderController extends Controller
     public function index(Request $request)
     {
 
-        $link_id = DB::table('header_links')->orderBy('created_at', 'desc')->first()->id;
+        $link_id =  HeaderLink::orderBy('sort')->first()->id;
         $request->id ? $link_id = $request->id : $link_id;
 
-        $headerLinks = DB::table('header_links')->orderBy('created_at', 'desc')->get();
-        $headerSublinks = DB::table('header_sublinks')->orderBy('created_at', 'desc')->where('header_links_id', $link_id)->get();
+        $headerLinks = HeaderLink::orderBy('sort')->get();
+        $headerSublinks = HeaderSublink::orderBy('sort')->where('header_links_id', $link_id)->get();
 
         return view('admin.settings.header.index', compact('headerLinks', 'headerSublinks', 'link_id'));
     }
@@ -80,35 +80,31 @@ class HeaderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $id =$request->id;
-        $link_id =$request->header_links_id;
+        // $id      = $request->id;
+        // $link_id = $request->header_links_id;
 
-        if($link_id) {
-            $headerSublinks = DB::table('header_sublinks')->where('id', $request->id)->get();
-            $this->validateSublink($headerSublinks);
-            DB::table('header_sublinks')->where('id', $id)->update([
-                "title" => $request->title,
-                "title_en" => $request->title_en,
-                "url" => $request->url
-            ]);
+        // if($link_id) {
+        //     $headerSublinks = HeaderSublink::where('id', $request->id)->get();
+        //     $this->validateSublink($headerSublinks);
+        //     HeaderSublink::where('id', $id)->update([
+        //         "title" => $request->title,
+        //         "title_en" => $request->title_en,
+        //         "url" => $request->url
+        //     ]);
 
-            // return back()->with('message', __('Details were updated successfully!'));
-            // return redirect('/admin/header?id=' . $link_id . '')->with('message', __('Details were updated successfully!'));
-            return response()->json(['success'=>'Form is successfully submitted!']);
+        //     return response()->json(['success'=>'Form is successfully submitted!']);
             
-        }else {
-            $headerLinks = DB::table('header_links')->where('id', $request->id)->get();
-            $this->validateLink($headerLinks);
-            DB::table('header_links')->where('id', $request->id)->update([
-                "title" => $request->title,
-                "title_en" => $request->title_en,
-                "url" => $request->url
-            ]);
+        // }else {
+        //     $headerLinks = HeaderSublink::where('id', $request->id)->get();
+        //     $this->validateLink($headerLinks);
+        //     HeaderSublink::where('id', $request->id)->update([
+        //         "title" => $request->title,
+        //         "title_en" => $request->title_en,
+        //         "url" => $request->url
+        //     ]);
 
-            // return back()->with('message', __('Details were updated successfully!'));
-            // return redirect('/admin/header?id=' . $id . '')->with('message', __('Details were updated successfully!'));
-            return response()->json(['success'=>'Form is successfully submitted!']);
-        }
+        //     return response()->json(['success'=>'Form is successfully submitted!']);
+        // }
     }
 
     /**
@@ -122,14 +118,15 @@ class HeaderController extends Controller
         //
     }
 
-    protected function validateLink()
+    protected function validateLink($request = null)
     {
-
         return request()->validate([
             'title'        => 'required',
             'title_en'     => 'required',
             'url'          => 'required',
-            'created_at'   => Carbon::now(),
+            'sort'         => 'required',   
+            'status'       => 'nullable',
+            // 'created_at'   => Carbon::now(),
         ]);
 
     }
@@ -142,6 +139,7 @@ class HeaderController extends Controller
             'title_en'        => 'required',
             'header_links_id' => 'required',
             'url'             => 'required',
+            'sort'            => 'required',
             'created_at'      => Carbon::now(),
         ]);
 
@@ -150,7 +148,7 @@ class HeaderController extends Controller
     public function headerSublinks(Request $request) {
         if($request->ajax()) {
             $id = $request->id;
-            $headerSublinks = DB::table('header_sublinks')->where('header_links_id', $id)->orderBy('created_at', 'desc')->get();
+            $headerSublinks = HeaderSublink::where('header_links_id', $id)->orderBy('sort')->get();
 
             return view('admin.settings.header.links', compact('headerSublinks'));
         }
@@ -199,7 +197,22 @@ class HeaderController extends Controller
         if($request->ajax()) {            
             $headerLink = HeaderLink::find($id);
 
-            if($headerLink->update($this->validateLink())) {
+            $this->validateLink();
+
+            $status = 0;
+
+            $request->input('status')    ? $status    = 1 : 0;
+            !$request->input('status')   ? $status    = 0 : 1;
+
+            $fields = [
+                'title'        => $request->input('title'),
+                'title_en'     => $request->input('title_en'),
+                'url'          => $request->input('url'),
+                'sort'         => $request->input('sort'), 
+                'status'       => $status
+            ];
+
+            if($headerLink->update($fields)) {
 
                 return response()->json(['success'=> __('Details were updated successfully!')]);
             }
@@ -213,9 +226,23 @@ class HeaderController extends Controller
         if($request->ajax()) {  
 
             $headerSublink = HeaderSublink::findOrFail($id);
-            $headerSublink->update($this->validateSublink());
 
-            if($headerSublink->update($this->validateSublink())) {
+            $this->validateSublink();
+
+            $status = 0;
+
+            $request->input('status')    ? $status    = 1 : 0;
+            !$request->input('status')   ? $status    = 0 : 1;
+
+            $fields = [
+                'title'        => $request->input('title'),
+                'title_en'     => $request->input('title_en'),
+                'url'          => $request->input('url'),
+                'sort'         => $request->input('sort'), 
+                'status'       => $status,
+            ];
+
+            if($headerSublink->update($fields)) {
                 
                 return response()->json(['success'=> __('Details were updated successfully!')]);
             }
@@ -239,7 +266,23 @@ class HeaderController extends Controller
 
                     $headerSublink = new HeaderSublink();
 
-                    $headerSublink->create($this->validateSublink());
+                    $this->validateSublink();
+
+                    $status = 0;
+
+                    $request->input('status')    ? $status    = 1 : 0;
+                    !$request->input('status')   ? $status    = 0 : 1;
+
+                    $fields = [
+                        'title'           => $request->input('title'),
+                        'title_en'        => $request->input('title_en'),
+                        'url'             => $request->input('url'),
+                        'sort'            => $request->input('sort'), 
+                        'status'          => $status,
+                        'header_links_id' => $header_links_id
+                    ];
+
+                    $headerSublink->create($fields);
                     
                     return response()->json(['success'=> __('Recored was added!')]);
                     
@@ -251,7 +294,22 @@ class HeaderController extends Controller
 
                 $headerLink = new HeaderLink();
 
-                if ($headerLink->create($this->validateLink())) {
+                $this->validateLink();
+
+                $status = 0;
+
+                $request->input('status')    ? $status    = 1 : 0;
+                !$request->input('status')   ? $status    = 0 : 1;
+
+                $fields = [
+                    'title'           => $request->input('title'),
+                    'title_en'        => $request->input('title_en'),
+                    'url'             => $request->input('url'),
+                    'sort'            => $request->input('sort'), 
+                    'status'          => $status,
+                ];
+
+                if ($headerLink->create($fields)) {
 
                     return response()->json(['success'=> __('Recored was added!')]);
                 }

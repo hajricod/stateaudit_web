@@ -1,7 +1,11 @@
 @extends('layouts.admin')
 
 @section('content')
-<h2>{{__('Complaint Details')}}</h2>
+
+<div class="d-flex justify-cotent-start align-items-center">
+    <x-back-button url='/admin/complaint' title="{{__('Complaints')}}" />
+    <h3 class="m-0">{{__('Complaint Details')}}</h3>
+</div>
 <br>
 
 <div class="card">
@@ -29,9 +33,19 @@
         </div>
         <hr>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label for="type"><b>{{__('Complaint Type')}}:</b></label><br>
-                <P>{{$complaint->type}}</P>
+                @php
+                    $type = App\Models\ComplaintType::find($complaint->type_id);
+                @endphp
+                <P>{{lang() == 'ar'? $type->title: $type->title_en}}</P>
+            </div>
+            <div class="col-md-6">
+                <label for="status"><b>{{__('Status')}}:</b></label>
+                @php
+                    $status = App\Models\ComplaintStatus::find($complaint->status_id);
+                @endphp
+                <P>{{lang() == 'ar'? $status->title: $status->title_en}}</P>
             </div>
         </div>
         <hr>
@@ -46,17 +60,15 @@
 
             <div class="col-md-12">
                 <label for="attachments"><b>{{__('Attachments')}}:</b></label><br>
-                {{-- @if (count($attachments) > 0) --}}
+                @if (count($attachments) > 0)
                     <ol>
                         @foreach ($attachments as $attachment)
-                            @if ($attachment != "")
-                               <li><a href='{{ route("download", ["complaints", $attachment]) }}'>{{ __('Attachment')}}</a></li> 
-                            @endif
+                            <li><a href='{{ route("download", ["complaints", $attachment]) }}'>{{ __('Attachment')}}</a></li> 
                         @endforeach
                     </ol>
-                {{-- @else
+                @else
                     <p>{{__('Nothing')}}</p>
-                @endif --}}
+                @endif
                 
             </div>
         </div>

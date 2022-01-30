@@ -7,6 +7,11 @@
 // Bootstrap
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 
+@font-face {
+    font-family: tajwal_regular;
+    src: url(../fonts/Tajawal-Regular.ttf);
+}
+
 $xl: 1200px;
 $lg: 992px;
 $md: 768px;
@@ -29,6 +34,7 @@ $main: #710f11;
 }
 
 body {
+    font-family: tajwal_regular;
     background-image: url(../img/architcture.png);
     background-position: center;
     background-size: cover;
@@ -476,3 +482,6 @@ html:lang(ar) {
     50% {transform: rotate(360deg);}
     100% {transform: rotate(-360deg);}
 }
+
+// top nav
+@import './top-nav.scss';

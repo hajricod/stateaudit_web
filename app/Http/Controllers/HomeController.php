@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\admin\FilesController;
+use App\Http\Controllers\Admin\FilesController;
 use App\Models\News;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {

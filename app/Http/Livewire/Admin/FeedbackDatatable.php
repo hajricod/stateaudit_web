@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Http\Controllers\admin\FeedbackController;
+use App\Http\Controllers\Admin\FeedbackController;
 use App\Models\Feedback;
 use Livewire\Component;
 use Livewire\WithPagination;

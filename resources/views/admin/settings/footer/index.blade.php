@@ -55,6 +55,22 @@
                                     <label for="url">{{__('URL')}}</label>
                                     <input type="text" name="url" class="form-control" disabled>
                                 </div>
+                                <div class="form-group text-left" dir="ltr">
+                                    <label for="sort">{{__('Sort')}}</label>
+                                    <input type="number" name="sort" class="form-control">
+                                </div>
+                                <div class="form-group text-left" dir="ltr">
+                                    <label for="icon">{{__('Icon')}}</label>
+                                    <textarea name="icon" class="form-control" rows="4"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox" name="status" checked>
+                                    <label for="status">{{__('Status')}}</label>
+                                </div>
+                                <div id="show_title" class="form-group">
+                                    <input type="checkbox" name="show_title" checked>
+                                    <label for="show_title">{{__('Show Title')}}</label>
+                                </div>
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -74,6 +90,8 @@
                         <th></th>
                         <th>العنوان</th>
                         <th>Title</th>
+                        <th>{{__('Sort')}}</th>
+                        <th>{{__('Status')}}</th>
                         <th>{{__('Actions')}}</th> 
                     </tr>
                 </thead>
@@ -82,7 +100,6 @@
                         <tr id="link_{{$item->id}}">
                             <form action='{{url("/admin/updateFooterLinks/$item->id")}}' id="form_update_link_{{$item->id}}" method="POST">
                                 @csrf
-                                {{-- @method('put') --}}
                                 <td class="text-center">
                                     <input type="radio" name="id" class="" id="{{$item->id}}" value="{{$item->id}}" style="width: 15px" {{$item->id == $cate_id ? 'checked' : ''}}>
                                 </td>
@@ -95,6 +112,14 @@
                                     <div class="group-control">
                                         <input type="text" class="form-control" name="title_en" value="{{$item->title_en}}" dir="ltr">
                                     </div>
+                                </td>
+                                <td style="width: 100px">
+                                    <div class="group-control">
+                                        <input type="number" class="form-control" name="sort" value="{{$item->sort}}" dir="ltr">
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <input type="checkbox" class="" id="{{$item->id}}" name="status" {{$item->status == 1 ? 'checked' : ''}}>
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="actions" dir="ltr">
@@ -197,11 +222,15 @@
             var id = $(this).val();
 
             if(id == "") {
+                $("#show_title").addClass("d-none");
+                $("#show_title > input").attr("disabled", true);
                 $("#url").addClass("d-none");
                 $("#url > input").attr("disabled", true);
             }else {
                 $("#url").removeClass("d-none");
                 $("#url > input").attr("disabled", false);
+                $("#show_title").removeClass("d-none");
+                $("#show_title > input").attr("disabled", false);
             }
         })
 

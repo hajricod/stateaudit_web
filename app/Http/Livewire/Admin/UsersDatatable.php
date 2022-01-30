@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Http\Controllers\admin\UsersController;
+use App\Http\Controllers\Admin\UsersController;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;

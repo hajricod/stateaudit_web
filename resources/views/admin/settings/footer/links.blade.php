@@ -6,16 +6,28 @@
             <tr>
                 <th colspan="3">
                     <div class="form-row align-items-center text-center">
-                        <div class="col-3">
+                        <div class="col">
                             العنوان
                         </div>
-                        <div class="col-3">
+                        <div class="col">
                             Title
                         </div>
-                        <div class="col-4">
+                        <div class="col">
                             URL
                         </div>
-                        <div class="col-2">
+                        <div class="col">
+                            {{__('Sort')}}
+                        </div>
+                        <div class="col">
+                            {{__('Show Title')}}
+                        </div>
+                        <div class="col">
+                            {{__('Status')}}
+                        </div>
+                        <div class="col">
+                            {{__('Icon')}}
+                        </div>
+                        <div class="col">
                             {{__('Actions')}}
                         </div>
                     </div>
@@ -30,19 +42,31 @@
                         <form action='{{url("/admin/updateFooterSublinks/$item->id")}}' id="form_update_sublink_{{$item->id}}" method="POST">
                             <div class="form-row align-items-center">
                             @csrf
-                            {{-- @method('put') --}}
-                                <div class="col-3" dir="rtl">
+                                <div class="col" dir="rtl">
                                     <input type="hidden" name="id" value="{{$item->id}}">
                                     <input type="hidden" name="footer_cate_id" value="{{$item->footer_cate_id}}">
                                     <input type="text" class="form-control" name="title" value="{{$item->title}}">
                                 </div>
-                                <div class="col-3" dir="ltr">
+                                <div class="col" dir="ltr">
                                     <input type="text" class="form-control" name="title_en" value="{{$item->title_en}}">
                                 </div>
-                                <div class="col-4" dir="ltr">
+                                <div class="col" dir="ltr">
                                     <input type="text" class="form-control" name="url" value="{{$item->url}}">
                                 </div>
-                                <div class="col-2 text-center" role="group" aria-label="actions" dir="ltr">
+                                <div class="col" dir="ltr">
+                                    <input type="text" class="form-control" name="sort" value="{{$item->sort}}">
+                                </div>  
+                                <div class="col text-center" dir="ltr">
+                                    <input type="checkbox" name="show_title" {{$item->show_title == 1 ? 'checked' : ''}}>
+                                </div>
+                                <div class="col text-center" dir="ltr">
+                                    <input type="checkbox" name="status" {{$item->status == 1 ? 'checked' : ''}}>
+                                </div>
+                                <div class="col text-center" dir="ltr">
+                                    <textarea class="d-block" name="icon">{!! $item->icon !!}</textarea> 
+                                    <div class="d-inline-block">{!! $item->icon !!}</div> 
+                                </div> 
+                                <div class="col text-center" role="group" aria-label="actions" dir="ltr">
                                     <div class="btn-group" role="group" aria-label="actions" dir="ltr">
                                         {{-- <button 
                                         class="btn btn-light btnDelete" 

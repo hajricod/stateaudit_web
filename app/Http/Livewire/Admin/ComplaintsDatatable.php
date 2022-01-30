@@ -2,8 +2,9 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Http\Controllers\admin\ComplaintController;
+use App\Http\Controllers\Admin\ComplaintController;
 use App\Models\Complaint;
+use App\Models\ComplaintStatus;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -23,6 +24,7 @@ class ComplaintsDatatable extends Component
     public    $toDate          = '';
     public    $min_date        = '';
     public    $max_date        = '';
+    public    $status;
 
     public function mount() {
 
@@ -73,7 +75,10 @@ class ComplaintsDatatable extends Component
             ->where(function ($query) {
                 $query->orWhere('name', 'like', '%'.$this->search.'%')
                 ->orWhere('id_number', 'like', '%'.$this->search.'%')
-                ->orWhere('email', 'like', '%'.$this->search.'%');
+                ->orWhere('email', 'like', '%'.$this->search.'%')
+                ->orWhere('phone', 'like', '%'.$this->search.'%')
+                ->orWhere('accused_party', 'like', '%'.$this->search.'%')
+                ->orWhere('id', 'like', '%'.$this->search.'%');
             })
             ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
             ->paginate($this->perPage);
@@ -83,6 +88,9 @@ class ComplaintsDatatable extends Component
             ->orWhere('name', 'like', '%'.$this->search.'%')
             ->orWhere('id_number', 'like', '%'.$this->search.'%')
             ->orWhere('email', 'like', '%'.$this->search.'%')
+            ->orWhere('phone', 'like', '%'.$this->search.'%')
+            ->orWhere('accused_party', 'like', '%'.$this->search.'%')
+            ->orWhere('id', 'like', '%'.$this->search.'%')
             ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
             ->paginate($this->perPage);
         }
@@ -125,12 +133,20 @@ class ComplaintsDatatable extends Component
         
     }
 
+    public function changeStatus($status_id, $complaint_id) {
+
+        $complaint = Complaint::find($complaint_id);
+        
+        $complaint->update(['status_id' => $status_id]);
+    }
+
     public function render()
     {
         $this->featch();
 
         return view('livewire.admin.complaints-datatable', [
-            'complaints' => $this->complaints
+            'complaints'         => $this->complaints,
+            'complaint_statuses' => ComplaintStatus::all() //where('title_en', '!=', 'Deleted')->get()
         ]);
     }
 }

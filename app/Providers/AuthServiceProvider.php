@@ -35,6 +35,12 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
+        Gate::define('group-permission', function (User $user, Group $group) {
+
+            return $user->group->title === $group->title ? true : false;
+
+        });
+
         Gate::define('group-complaint', function (User $user, Group $group) {
 
             return $user->group->title === "Complaints"? true : false;

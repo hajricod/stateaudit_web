@@ -13,8 +13,14 @@
                         <div class="col-3">
                             Title
                         </div>
-                        <div class="col-4">
+                        <div class="col-2">
                             URL
+                        </div>
+                        <div class="col-1">
+                            {{__('Sort')}}
+                        </div>
+                        <div class="col-1">
+                            {{__('Status')}}
                         </div>
                         <div class="col-2">
                             {{__('Actions')}}
@@ -39,8 +45,14 @@
                                 <div class="col-3" dir="ltr">
                                     <input type="text" class="form-control" name="title_en" value="{{$item->title_en}}">
                                 </div>
-                                <div class="col-4" dir="ltr">
+                                <div class="col-2" dir="ltr">
                                     <input type="text" class="form-control" name="url" value="{{$item->url}}">
+                                </div>
+                                <div class="col-1" dir="ltr">
+                                    <input type="text" class="form-control" name="sort" value="{{$item->sort}}">
+                                </div>
+                                <div class="col-1 text-center" dir="ltr">
+                                    <input type="checkbox" class="" id="{{$item->id}}" name="status" {{$item->status == 1 ? 'checked' : ''}}>
                                 </div>
                                 <div class="col-2 text-center" dir="ltr">
                                     <div class="btn-group" role="group" aria-label="actions" dir="ltr">

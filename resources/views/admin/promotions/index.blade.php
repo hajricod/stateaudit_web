@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h2>{{__('News')}}</h2>
+<h2>{{__('Promotions')}}</h2>
 <br>
 
 @livewire('admin.promotions-datatable')

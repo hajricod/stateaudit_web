@@ -28,6 +28,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{__('Branches')}}</h5>
+                            <hr>
+                            <a class="btn btn-primary btn-block" href="{{url('admin/branches')}}">{{__('Modify')}}</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

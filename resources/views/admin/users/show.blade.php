@@ -49,6 +49,13 @@
                         @error('password')
                             <p class="text-danger"> {{ $message }}</p>
                         @enderror
+                        @error('password')
+                            <span class="text-danger" role="alert">
+                                <strong>
+                                    {{__('Your password must be more than 8 characters long, should contain at least 1 Uppercase, 1 Lowercase, 1 Numeric and 1 special character')}}
+                                </strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -68,7 +75,7 @@
                         <p class="form-control" readonly>{{$user->created_at->format("M j, Y, g:i A")}} </p>
                     </div>
                 </div>
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <div class="form-group">
                         <label for="created_at">{{__('Group')}}</label>
                         <select class="form-control" name="group_id" id="group_id" disabled="true">
@@ -77,9 +84,10 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <hr>
+            
             <div class="row">
                 
                 <div class="col-sm-12 col-md-4 offset-md-4">
@@ -90,6 +98,8 @@
                     </div>
                 </div>
             </div>
+
+            <livewire:admin.user-permissions :userid="$user->id" />
         </form>        
     </div>
 </div>

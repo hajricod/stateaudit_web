@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Models\FooterCategory;
 use App\Models\FooterLink;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class FooterController extends Controller
 {
@@ -19,11 +18,11 @@ class FooterController extends Controller
     public function index(Request $request)
     {
 
-        $cate_id = DB::table('footer_categories')->orderBy('created_at', 'desc')->first()->id;
+        $cate_id = FooterCategory::orderBy('sort')->first()->id;
         $request->id ? $cate_id = $request->id : $cate_id;
 
-        $footerCategories = DB::table('footer_categories')->orderBy('created_at', 'desc')->get();
-        $footerLinks = DB::table('footer_Links')->orderBy('created_at', 'desc')->where('footer_cate_id', $cate_id)->get();
+        $footerCategories = FooterCategory::orderBy('sort')->get();
+        $footerLinks = FooterLink::orderBy('sort')->where('footer_cate_id', $cate_id)->get();
 
         return view('admin.settings.footer.index', compact('footerCategories', 'footerLinks', 'cate_id'));
     }
@@ -80,32 +79,32 @@ class FooterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $id =$request->id;
-        $cate_id =$request->footer_cate_id;
+        // $id =$request->id;
+        // $cate_id =$request->footer_cate_id;
 
-        if($cate_id) {
-            $footerLinks = DB::table('footer_links')->where('id', $request->id)->get();
-            $this->validateLink($footerLinks);
-            DB::table('footer_links')->where('id', $id)->update([
-                "title" => $request->title,
-                "title_en" => $request->title_en,
-                "url" => $request->url
-            ]);
+        // if($cate_id) {
+        //     $footerLinks = FooterLink::where('id', $request->id)->get();
+        //     $this->validateLink($footerLinks);
+        //     FooterLink::where('id', $id)->update([
+        //         "title" => $request->title,
+        //         "title_en" => $request->title_en,
+        //         "url" => $request->url
+        //     ]);
 
-            // return back()->with('message', __('Details were updated successfully!'));
-            return redirect('/admin/footer?id=' . $cate_id . '')->with('message', __('Details were updated successfully!'));
+        //     // return back()->with('message', __('Details were updated successfully!'));
+        //     return redirect('/admin/footer?id=' . $cate_id . '')->with('message', __('Details were updated successfully!'));
             
-        }else {
-            $footerCategory = DB::table('footer_categories')->where('id', $request->id)->get();
-            $this->validateCate($footerCategory);
-            DB::table('footer_categories')->where('id', $request->id)->update([
-                "title" => $request->title,
-                "title_en" => $request->title_en
-            ]);
+        // }else {
+        //     $footerCategory = FooterCategory::where('id', $request->id)->get();
+        //     $this->validateCate($footerCategory);
+        //     FooterCategory::where('id', $request->id)->update([
+        //         "title" => $request->title,
+        //         "title_en" => $request->title_en
+        //     ]);
 
-            // return back()->with('message', __('Details were updated successfully!'));
-            return redirect('/admin/footer?id=' . $id . '')->with('message', __('Details were updated successfully!'));
-        }
+        //     // return back()->with('message', __('Details were updated successfully!'));
+        //     return redirect('/admin/footer?id=' . $id . '')->with('message', __('Details were updated successfully!'));
+        // }
     }
 
     /**
@@ -125,7 +124,8 @@ class FooterController extends Controller
         return request()->validate([
             'title'          => 'required',
             'title_en'       => 'required',
-            'created_at'     => Carbon::now(),
+            'status'         => 'nullable',
+            'sort'           => 'required',
         ]);
 
     }
@@ -138,7 +138,10 @@ class FooterController extends Controller
             'title_en'       => 'required',
             'footer_cate_id' => 'required',
             'url'            => 'required',
-            'created_at'     => Carbon::now(),
+            'status'         => 'nullable',
+            'sort'           => 'required',
+            'show_text'      => 'nullable',
+            'icon'           => 'nullable'
         ]);
 
     }
@@ -146,7 +149,7 @@ class FooterController extends Controller
     public function footerLinks(Request $request) {
         if($request->ajax()) {
             $id = $request->id;
-            $footerLinks = DB::table('footer_links')->where('footer_cate_id', $id)->orderBy('created_at', 'desc')->get();
+            $footerLinks = FooterLink::where('footer_cate_id', $id)->orderBy('sort')->get();
 
             return view('admin.settings.footer.links', compact('footerLinks'));
         }
@@ -158,7 +161,21 @@ class FooterController extends Controller
 
             $footerLink = FooterCategory::find($id);
 
-            if($footerLink->update($this->validateCate())) {
+            $this->validateCate();
+
+            $status = 0;
+
+            $request->input('status')    ? $status    = 1 : 0;
+            !$request->input('status')   ? $status    = 0 : 1;
+
+            $fields = [
+                'title'          => $request->input('title'),
+                'title_en'       => $request->input('title_en'),
+                'status'         => $status,
+                'sort'           => $request->input('sort'),
+            ];
+
+            if($footerLink->update($fields)) {
 
                 return response()->json(['success'=> __('Details were updated successfully!')]);
             }
@@ -173,8 +190,6 @@ class FooterController extends Controller
 
             $footerLink     = FooterCategory::find($id);
             $footerSublinks = FooterLink::where("footer_cate_id", $footerLink->id)->get();
-
-            // dd($footerSublinks);
 
             if(count($footerSublinks) > 0) {
 
@@ -213,7 +228,28 @@ class FooterController extends Controller
 
             $footerSublink = FooterLink::findOrFail($id);
 
-            if($footerSublink->update($this->validateLink())) {
+            $this->validateLink();
+
+            $status = 0;
+            $showTitle = 0;
+
+            $request->input('status')        ? $status    = 1 : 0;
+            !$request->input('status')       ? $status    = 0 : 1;
+            $request->input('show_title')    ? $showTitle = 1 : 0;
+            !$request->input('show_title')   ? $showTitle = 0 : 1;
+
+            $fields = [
+                'title'          => $request->input('title'),
+                'title_en'       => $request->input('title_en'),
+                'url'            => $request->input('url'),
+                'status'         => $status,
+                'show_title'     => $showTitle,
+                'sort'           => $request->input('sort'),
+                'footer_cate_id' => $request->input('footer_cate_id'),
+                'icon'           => $request->input('icon')
+            ];
+
+            if($footerSublink->update($fields)) {
                 
                 return response()->json(['success'=> __('Details were updated successfully!')]);
             }
@@ -237,7 +273,28 @@ class FooterController extends Controller
 
                     $footerLink = new FooterLink();
 
-                    $footerLink->create($this->validateLink());
+                    $this->validateLink();
+
+                    $status = 0;
+                    $showTitle = 0;
+
+                    $request->input('status')        ? $status    = 1 : 0;
+                    !$request->input('status')       ? $status    = 0 : 1;
+                    $request->input('show_title')    ? $showTitle = 1 : 0;
+                    !$request->input('show_title')   ? $showTitle = 0 : 1;
+
+                    $fields = [
+                        'title'          => $request->input('title'),
+                        'title_en'       => $request->input('title_en'),
+                        'url'            => $request->input('url'),
+                        'status'         => $status,
+                        'show_title'     => $showTitle,
+                        'sort'           => $request->input('sort'),
+                        'footer_cate_id' => $request->input('footer_cate_id'),
+                        'icon'           => $request->input('icon')
+                    ];
+
+                    $footerLink->create($fields);
                     
                     return response()->json(['success'=> __('Recored was added!')]);
                     
@@ -249,7 +306,21 @@ class FooterController extends Controller
 
                 $footerCategory = new FooterCategory();
 
-                if ($footerCategory->create($this->validateCate())) {
+                $this->validateCate();
+
+                $status = 0;
+
+                $request->input('status')    ? $status    = 1 : 0;
+                !$request->input('status')   ? $status    = 0 : 1;
+
+                $fields = [
+                    'title'          => $request->input('title'),
+                    'title_en'       => $request->input('title_en'),
+                    'status'         => $status,
+                    'sort'           => $request->input('sort'),
+                ];
+
+                if ($footerCategory->create($fields)) {
 
                     return response()->json(['success'=> __('Recored was added!')]);
                 }
