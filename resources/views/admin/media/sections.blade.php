@@ -11,7 +11,11 @@
                 <div class="card m-1">
                     <div class="card-body">
                         <h5 class="card-title">
-                            <a href="/admin{{str_replace('years', 'videos', $program->url)}}/{{$program->id}}">{{$program->title}}</a>
+                            @if (str_contains($program->url, 'news'))
+                                <a href="/admin{{str_replace('years', 'videos', $program->url)}}">{{$program->title}}</a>
+                                @else
+                                <a href="/admin{{str_replace('years', 'videos', $program->url)}}/{{$program->id}}">{{$program->title}}</a>
+                            @endif
                         </h5> 
                     </div>
                 </div>

@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/new.js') }}" defer></script>
+    @yield('head-script')
     
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

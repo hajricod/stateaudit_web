@@ -172,4 +172,9 @@ class MediaController extends Controller
 
         return view($this->path.'files', compact('program', 'files'));
     }
+
+    public function mevents()
+    {
+        return view($this->path.'events');
+    }
 }

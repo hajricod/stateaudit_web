@@ -26,11 +26,13 @@ use App\Http\Controllers\Admin\FaqController as AdminFaqController;
 use App\Http\Controllers\Admin\FaqgroupController;
 use App\Http\Controllers\Admin\StandardsController as AdminStandardsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Site\AnticorruptionController;
 use App\Http\Controllers\Site\ComplaintController;
 use App\Http\Controllers\Site\ContactusController;
 use App\Http\Controllers\Site\FaqController;
 use App\Http\Controllers\Site\FdgoController;
 use App\Http\Controllers\Site\FeedbackController;
+use App\Http\Controllers\Site\LawsAndRegulationsController;
 use App\Http\Controllers\Site\LibraryController;
 use App\Http\Controllers\Site\MediaController;
 use App\Http\Controllers\Site\NewsController;
@@ -69,16 +71,20 @@ Route::resource('/complaint', ComplaintController::class)->only([
 ]);
 Route::get('/complaint/success/{id}', [ComplaintController::class, 'success']);
 Route::resource('/news', NewsController::class);
-Route::resource('/media', MediaController::class);
+// Route::resource('/media', MediaController::class);
+Route::get('/media', [MediaController::class, 'index']);
 Route::get('/media/list/{id}', [MediaController::class, 'list']);
 Route::get('/media/videos/{id}', [MediaController::class, 'videos']);
 Route::get('/media/videos/{prog_id}/{list_id?}', [MediaController::class, 'videos']);
 Route::get('/media/videosByYear/{prog_id}/{year}', [MediaController::class, 'videosByYear'])->name('videosByYear');
 Route::get('/media/years/{id}', [MediaController::class, 'years']);
 Route::get('/media/files/{id}', [MediaController::class, 'files'])->name('media-files');
+
 Route::resource('/feedback', FeedbackController::class);
 Route::get('/faq', [FaqController::class, 'index']);
 Route::get('/fdgo', [FdgoController::class, 'index']);
+Route::get('/anti_corruption', [AnticorruptionController::class, 'index']);
+Route::get('/laws_regulations', [LawsAndRegulationsController::class, 'index']);
 
 Route::get('/mailable', function () {
     $complaint = App\Models\Complaint::find(71);
@@ -198,3 +204,5 @@ Route::resource('standards', StandardsController::class)->only([
 ]);
 Route::get('standards/sub_folders_files/{id}', [StandardsController::class, 'sub_folders_files']);
 Route::get('contact_us', [ContactusController::class, 'index']);
+
+Route::get('/media/events', [MediaController::class, 'mevents']);

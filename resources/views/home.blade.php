@@ -29,7 +29,7 @@
 @endsection
 @section('banner')
 <div class="banner position-relative">
-  <div class="position-absolute" 
+  <div class="position-absolute d-none d-sm-block" 
   style="
     z-index: 2;
     bottom: 5%;
