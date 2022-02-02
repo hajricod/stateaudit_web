@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Audio;
 use App\Models\Media;
 use App\Models\MediaFile;
 use App\Models\Program;
@@ -176,5 +177,14 @@ class MediaController extends Controller
     public function mevents()
     {
         return view($this->path.'events');
+    }
+
+    public function audios(int $prog_id = null) {
+
+        $program = Program::find($prog_id);
+        
+        $audios  = Audio::where('program_id', $prog_id)->paginate(10);
+
+        return view($this->path.'audios', compact('program', 'audios'));
     }
 }

@@ -1,19 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row">
         <div class="col p-0">
+            <div class="d-flex justify-cotent-start align-items-center">
+                @if ($list)
+                    <h4>{{$program->title}} / {{$list->title}}</h4>
+                @else
+                    <h4>{{$program->title}}</h4>
+                @endif
+            </div>
+            <hr>
             <div class="card border-0 rounded">
                 <div class="card-body">
-                    <div class="d-flex justify-cotent-start align-items-center">
-                        @if ($list)
-                            <h3>{{$program->title}} / {{$list->title}}</h3>
-                        @else
-                            <h3>{{$program->title}}</h3>
-                        @endif
-                    </div>
-                    <hr>
+                    
                     @if(count($videos) == 0)
                         <ul class="list-group p-0">
                             <li class="list-group-item text-center">
@@ -22,7 +24,9 @@
                         </ul>
                     @endif
                     <div class="row">
-                        
+                        <div class="col-md-4">
+                            <livewire:site.videos-list :progid="$prog_id" :listid="$list_id"/>
+                        </div>
                         <div class="col-md-8">
                             @if (count($videos) > 0)
                                 <div id="video_player">
@@ -34,15 +38,13 @@
                                 </div> 
                             @endif
                         </div>
-                        <div class="col-md-4">
-                            <livewire:site.videos-list :progid="$prog_id" :listid="$list_id"/>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 @endsection
 
 @section('script')

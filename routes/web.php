@@ -2,7 +2,7 @@
 
 use App\Events\ComplaintProcessed;
 use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\Admin\AudiosController;
+use App\Http\Controllers\Admin\AudiosController as AdminAudiosController;
 use App\Http\Controllers\Admin\BranchesController as AdminBranchesController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ComplaintController as AdminComplaintController;
@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\PromotionsController;
 use App\Http\Controllers\Admin\VideosController;
 use App\Http\Controllers\Admin\FaqController as AdminFaqController;
 use App\Http\Controllers\Admin\FaqgroupController;
+use App\Http\Controllers\Admin\MediaEventsController as AdminMediaEventsController;
 use App\Http\Controllers\Admin\StandardsController as AdminStandardsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Site\AnticorruptionController;
@@ -41,6 +42,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Group;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -79,6 +81,7 @@ Route::get('/media/videos/{prog_id}/{list_id?}', [MediaController::class, 'video
 Route::get('/media/videosByYear/{prog_id}/{year}', [MediaController::class, 'videosByYear'])->name('videosByYear');
 Route::get('/media/years/{id}', [MediaController::class, 'years']);
 Route::get('/media/files/{id}', [MediaController::class, 'files'])->name('media-files');
+Route::get('/media/audios/{id}', [MediaController::class, 'audios']);
 
 Route::resource('/feedback', FeedbackController::class);
 Route::get('/faq', [FaqController::class, 'index']);
@@ -116,10 +119,13 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::resource('/employees', EmployeesSectionController::class);
     Route::resource('/promotions', PromotionsController::class);
     Route::resource('/videos', VideosController::class);
-    Route::resource('/audios', AudiosController::class);
-    Route::resource('/media', AdminMediaController::class);
+    Route::resource('/audios', AdminAudiosController::class);
+    Route::resource('/media', AdminMediaController::class)->only([
+        'index'
+    ]);
     Route::resource('/media_files', MediaFilesController::class);
     Route::resource('/media/lists', ProgramListsController::class);
+    Route::resource('/media/events', AdminMediaEventsController::class);
     Route::resource('/faq', AdminFaqController::class);
     Route::resource('/faqgroup', FaqgroupController::class);
     Route::resource('/branches', AdminBranchesController::class)->except([
