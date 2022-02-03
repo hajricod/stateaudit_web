@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Models\Audio;
 use App\Models\Media;
+use App\Models\MediaEvent;
 use App\Models\MediaFile;
 use App\Models\Program;
 use App\Models\ProgramCategory;
@@ -176,7 +177,23 @@ class MediaController extends Controller
 
     public function mevents()
     {
-        return view($this->path.'events');
+        $events = MediaEvent::all();
+
+        $data = [];
+
+        foreach ($events as $event) {
+
+            $data[] = [
+                'title'  => lang() == 'ar'? $event->title : $event->title_en,
+                'start'  => $event->start_on,
+                'end'    => $event->end_on,
+                'allDay' => $event->allday == 1? true: false
+            ];
+        }
+
+        $data = JSON_ENCODE($data, JSON_UNESCAPED_UNICODE);
+
+        return view($this->path.'events', compact('data'));
     }
 
     public function audios(int $prog_id = null) {

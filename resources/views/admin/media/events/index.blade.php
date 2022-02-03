@@ -2,9 +2,9 @@
 
 @section('content')
 
-<div class="container">
-    <div class="row">
-       
-    </div>
-</div>
+<h2>{{__('Events')}}</h2>
+<br>
+
+<livewire:admin.media-events-dataset />
+
 @endsection

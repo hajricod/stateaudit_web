@@ -64,7 +64,7 @@
                                     @endforeach
                                 </ul>
                             @endif
-                            <a href="{{$programCateList['cate']['url'] == '#'? '' : url("media/".$programCateList['cate']['url'])}}" class="list-group-item-action">
+                            <a href="{{$programCateList['cate']['url'] == '#'? '' : url("".$programCateList['cate']['url'])}}" class="list-group-item-action">
                                 <img class="card-img-top" src="{{asset("/images/media_block$loop->index.jpg")}}" alt="Card image cap">
                             </a>
                             <div class="card-body">

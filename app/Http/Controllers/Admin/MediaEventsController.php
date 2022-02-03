@@ -16,6 +16,7 @@ class MediaEventsController extends Controller
      */
     public function index()
     {
+
         checkPermission('media.view');
 
         return view($this->path.'index');
