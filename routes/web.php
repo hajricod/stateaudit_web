@@ -125,7 +125,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     ]);
     Route::resource('/media_files', MediaFilesController::class);
     Route::resource('/media/lists', ProgramListsController::class);
-    Route::resource('/media/events', AdminMediaEventsController::class);
+    Route::resource('/media_events', AdminMediaEventsController::class);
     Route::resource('/faq', AdminFaqController::class);
     Route::resource('/faqgroup', FaqgroupController::class);
     Route::resource('/branches', AdminBranchesController::class)->except([
@@ -211,4 +211,4 @@ Route::resource('standards', StandardsController::class)->only([
 Route::get('standards/sub_folders_files/{id}', [StandardsController::class, 'sub_folders_files']);
 Route::get('contact_us', [ContactusController::class, 'index']);
 
-Route::get('/media/events', [MediaController::class, 'mevents']);
+Route::get('/media_events', [MediaController::class, 'mevents']);

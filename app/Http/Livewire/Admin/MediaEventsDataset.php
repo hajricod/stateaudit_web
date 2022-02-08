@@ -2,23 +2,21 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Http\Controllers\Admin\MediaEventsController;
 use Livewire\Component;
-use App\Http\Controllers\Admin\PromotionsController;
-use App\Models\Promotion;
-use App\Models\PromotionCategory;
+use App\Models\MediaEvent;
 use Livewire\WithPagination;
 
 class MediaEventsDataset extends Component
 {
     use WithPagination;
 
-    protected $promotions;
+    protected $events;
     protected $paginationTheme   = 'bootstrap';
     public    $search            = '';
     public    $perPage           = 10;
     public    $sortField         = "created_at";
     public    $sortAsc           = false;
-    public    $promotionCategory = null;
 
     public function clear() {
         $this->search = '';
@@ -36,9 +34,9 @@ class MediaEventsDataset extends Component
 
     public function delete($id) {
 
-        $promotion = new PromotionsController();
+        $mediaEvent = new MediaEventsController();
 
-        $promotion->destroy(Promotion::find($id));
+        $mediaEvent->destroy(MediaEvent::find($id));
 
         session()->flash('message', __('Record was deleted!'));
 
@@ -51,19 +49,17 @@ class MediaEventsDataset extends Component
             $this->resetPage();
         }
 
-        $promotions = Promotion::query()
+        $events = MediaEvent::query()
         
         ->orWhere(function($query) {
             $query->where('title', 'like', '%'.$this->search.'%')
-                  ->where('description', 'like', '%'.$this->search.'%')
-                  ->where('promotion_categories_id', 'like', '%'.$this->promotionCategory.'%');
+                ->where('title_en', 'like', '%'.$this->search.'%');
         })
         ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
         ->paginate($this->perPage);
 
-        $this->promotions = $promotions; 
+        $this->events = $events; 
 
-        // dd($this->promotionCategory);
     }
 
     public function render()
@@ -71,8 +67,7 @@ class MediaEventsDataset extends Component
         $this->featch();
 
         return view('livewire.admin.media-events-dataset', [
-            'promotions' => $this->promotions,
-            'promotionCategories' => PromotionCategory::all()
+            'events' => $this->events,
         ]);
     }
 }

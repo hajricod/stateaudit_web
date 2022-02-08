@@ -11,8 +11,8 @@ class MediaEvent extends Model
 
     protected $guarded = [];
 
-    // protected $dates = [
-    //     'start_on',
-    //     'end_on'
-    // ];
+    protected $dates = [
+        'start_on',
+        'end_on'
+    ];
 }
