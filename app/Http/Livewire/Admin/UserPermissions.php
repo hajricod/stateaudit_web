@@ -25,6 +25,8 @@ class UserPermissions extends Component
 
     public function roleCheck($data) {
 
+        checkPermission('admin.update');
+
         $group_id = $data['groupid'];
         $role_id  = $data['roleid'];
 

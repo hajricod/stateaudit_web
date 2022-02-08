@@ -67,7 +67,9 @@
                 <li class="list-group-item">
                     <a href="/admin/users">{{__('Users')}}</a>
                 </li>
-            
+            @endif
+
+            @if(userRole('admin.view'))
                 <li class="list-group-item">
                     <a href="/admin/library">{{__('Library Manager')}}</a>
                 </li>

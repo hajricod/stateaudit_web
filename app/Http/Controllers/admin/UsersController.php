@@ -7,20 +7,9 @@ use App\Models\User;
 use App\Models\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 
 class UsersController extends Controller
 {
-    protected function isAuthorized() {
-
-        $group = Group::find(Auth::user()->group_id);
-
-        if (Gate::denies('group-admin', $group)) {
-
-            abort(403);
-        }
-    }
 
     /**
      * Display a listing of the resource.
@@ -29,8 +18,7 @@ class UsersController extends Controller
      */
     public function index()
     {   
-        $this->isAuthorized();
-        checkRole('view');
+        checkPermission('admin.view');
 
         $users = User::orderBy('created_at', 'desc')->paginate(10)->onEachSide(1);
         return view('admin.users.index', compact('users'));
@@ -43,7 +31,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $this->isAuthorized();
+        checkPermission('admin.add');
     }
 
     /**
@@ -54,7 +42,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $this->isAuthorized();
+        checkPermission('admin.add');
     }
 
     /**
@@ -65,7 +53,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        $this->isAuthorized();
+        checkPermission('admin.view');
 
         $groups = Group::all();
         return view('admin.users.show', compact('user', 'groups'));
@@ -79,7 +67,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        $this->isAuthorized();
+        checkPermission('admin.update');
     }
 
     /**
@@ -91,7 +79,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $this->isAuthorized();
+        checkPermission('admin.update');
 
         $user->touch();
         $user->update($this->validateUser($request));
@@ -106,7 +94,7 @@ class UsersController extends Controller
      */
     public function destroy(User $user, Request $request)
     {
-        $this->isAuthorized();
+        checkPermission('admin.delete');
 
         if($request->ajax()) {
             
@@ -118,25 +106,25 @@ class UsersController extends Controller
         }
     }
 
-    public function fetch_data(Request $request)
-    {
-        $this->isAuthorized();
+    // public function fetch_data(Request $request)
+    // {
+    //     checkPermission('admin.view');
         
-        if($request->ajax()) {
-            $sort_by = $request->get('sortby') ? $request->get('sortby') : 'created_at';
-            $sort_type = $request->get('sorttype') ? $request->get('sorttype') : 'desc';
-            $per_page = $request->get('perpage') ? $request->get('perpage') : 10;
-            $search = str_replace(" ", "%", $request->get('search'));
-            $users = User::
-            where('name', 'like', '%'.$search.'%')
-            ->orWhere('email', 'like', '%'.$search.'%')
-            ->orWhere('created_at', 'like', '%'.$search.'%')
-            ->orderBy($sort_by, $sort_type)
-            ->paginate($per_page)
-            ->onEachSide(1);
-            return view('admin.users.data', compact('users'));
-        }
-    }
+    //     if($request->ajax()) {
+    //         $sort_by = $request->get('sortby') ? $request->get('sortby') : 'created_at';
+    //         $sort_type = $request->get('sorttype') ? $request->get('sorttype') : 'desc';
+    //         $per_page = $request->get('perpage') ? $request->get('perpage') : 10;
+    //         $search = str_replace(" ", "%", $request->get('search'));
+    //         $users = User::
+    //         where('name', 'like', '%'.$search.'%')
+    //         ->orWhere('email', 'like', '%'.$search.'%')
+    //         ->orWhere('created_at', 'like', '%'.$search.'%')
+    //         ->orderBy($sort_by, $sort_type)
+    //         ->paginate($per_page)
+    //         ->onEachSide(1);
+    //         return view('admin.users.data', compact('users'));
+    //     }
+    // }
 
     protected function validateUser($request) {
         $fields = [

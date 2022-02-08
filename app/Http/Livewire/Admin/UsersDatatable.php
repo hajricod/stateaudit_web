@@ -34,6 +34,8 @@ class UsersDatatable extends Component
 
     public function delete($id) {
 
+        checkPermission('admin.delete');
+
         $user = User::find($id);
 
         $user->delete();
