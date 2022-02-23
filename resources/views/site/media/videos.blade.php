@@ -52,7 +52,7 @@
 <script>
     $(document).ready(function() {    
 
-        $(".video_btn").on('click', function() {
+        $(document).find(".video_btn").on('click', function() {
             $(".video_btn").removeClass("active");
             $(this).toggleClass("active");
             $("iframe").remove();

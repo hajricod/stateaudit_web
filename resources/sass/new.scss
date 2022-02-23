@@ -2,7 +2,10 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
-@import 'variables';
+// @import 'variables';
+
+// Bootstrap
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
 
 @font-face {
     font-family: tajwal_regular;

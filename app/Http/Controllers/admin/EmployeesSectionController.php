@@ -16,8 +16,46 @@ class EmployeesSectionController extends Controller
     public function index()
     {
         checkPermission('public.view');
-        
-        return view('admin.employees_section.index');
+        $sections = [
+            [
+                "title"    => "النظام المالي والإداري",
+                "title_en" => "cccc",
+                "url"      => "http://saierpsp01/sites/DynamicsAx/EmployeeServices/Enterprise%20Portal/default.aspx?&WDPK=initial&WMI=EPPersonalInformation&redirected=1&WCMP=sai&WMI=EPPersonalInformation",
+                "target"   => "_blank"
+            ],
+            [
+                "title"    => "أهم القرارات والتعاميم",
+                "title_en" => "Important Decisions and Statements",
+                "url"      => "#",
+                "target"   => ""
+            ],
+            [
+                "title"    => "دليل الهاتف",
+                "title_en" => "Phone Guide",
+                "url"      => "#",
+                "target"   => ""
+            ],
+            [
+                "title"    => "دليل الحلقة المغلقة",
+                "title_en" => "Closed Circle Guide",
+                "url"      => "#",
+                "target"   => ""
+            ],
+            [
+                "title"    => "العروض والمميزات",
+                "title_en" => "Promotions",
+                "url"      => "/admin/promotions",
+                "target"   => ""
+            ],
+            [
+                "title"    => "المكتبة",
+                "title_en" => "Library",
+                "url"      => "/admin/library",
+                "target"   => ""
+            ]
+        ];
+
+        return view('admin.employees_section.index', compact('sections'));
     }
 
     /**
