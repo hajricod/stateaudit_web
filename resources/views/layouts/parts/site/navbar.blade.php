@@ -126,11 +126,16 @@
 
                 <li class="nav-item d-md-none d-block text-center">
                     <div class="d-grid gap-2 my-2">
-                        <button class="btn btn-light text-dark px-3" id="btn-search" data-bs-toggle="modal" href="#searchModalToggle" role="button">
+                        {{-- <button class="btn btn-light text-dark px-3" id="btn-search" data-bs-toggle="modal" href="#searchModalToggle" role="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                             </svg>
-                        </button>
+                        </button> --}}
+                        <a class="btn btn-light text-dark px-3" id="btn-search" href="/search">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </a>
                     </div>
                 </li>
             </ul>
