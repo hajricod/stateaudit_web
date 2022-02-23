@@ -13,7 +13,7 @@
                 <div class="w-100">
                     <div class="row">
                         <div class="col-md-8 offset-md-2">
-                            <form action="" method="post">
+                            <form action="/search" method="get">
                                 <input class="form-control" type="text" name="search" id="input-main-search">
                                 <div class="d-grid gap-2 my-2">
                                     <button type="submit" class="btn text-light btn-lg">{{__('Search')}}</button>

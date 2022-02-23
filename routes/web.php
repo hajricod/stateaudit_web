@@ -57,6 +57,14 @@ use App\Models\Group;
 
 // Public
 
+Route::get('/clear', function () {
+	
+	/* php artisan migrate */
+    \Artisan::call('config:clear');
+    \Artisan::call('cache:clear');
+    \Artisan::call('config:cache');
+    dd("Done");
+});
 
 Route::get('/', function () {
     return view('home');
@@ -212,3 +220,9 @@ Route::get('standards/sub_folders_files/{id}', [StandardsController::class, 'sub
 Route::get('contact_us', [ContactusController::class, 'index']);
 
 Route::get('/media_events', [MediaController::class, 'mevents']);
+
+Route::get('/search', function() {
+
+    return view('site.search.index');
+
+});

@@ -30,7 +30,7 @@
     
     @include('layouts/parts/site/fullPageLoginModal')
 
-    @include('layouts/parts/site/fullSearchModal')
+    {{-- @include('layouts/parts/site/fullSearchModal') --}}
     
     <div class="loading">
         <div class="img-loader">
