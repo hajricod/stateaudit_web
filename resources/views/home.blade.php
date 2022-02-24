@@ -95,40 +95,25 @@
 
 @section('content')
 <section class="d-flex align-items-center justify-content-center section1 mb-5" style="min-height: 30vh; ">
-  <div class="container btn-services">
-    <div class="row">
-      <div class="col-lg-4 col-md-6">
-        <a href="/complaint/create">
-          <div class="circle shadow-sm anim" data-delay="0s">
-              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cursor-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z"/>
-              </svg>
-              <p>{{ __('Complaints') }}</p>
-          </div>
-        </a>
-      </div>
-      <div class="col-lg-4 col-md-6">
-        <a href="/fdgo">
-          <div class="circle shadow-sm anim" data-delay=".5s">
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z"/>
-              <path fill-rule="evenodd" d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z"/>
-            </svg>
-            <p>{{ __('Financial Disclosure for Government Official') }}</p>
-          </div>
-        </a>
-      </div>
-      <div class="col-lg-4 col-md-6">
-        <a href="/media">
-          <div class="circle shadow-sm anim" data-delay="1s">
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-card-checklist" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
-              <path fill-rule="evenodd" d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
-            </svg>
-            <p>{{ __('Media and Awareness Center') }}</p>
-          </div>
-        </a>
-      </div>
+  <div class="container btn-services pt-5">
+    <div class="row g-2">
+      @php
+        $counter = 0
+      @endphp
+
+      @foreach ($big_buttons as $big_button)
+        <div class="col-lg-4 col-md-6">
+          <a href="{{ $big_button["url"] }}">
+            <div class="circle shadow-sm anim" data-delay="{{$counter}}s">
+                {!!$big_button["icon"]!!}
+                <p>{{ $big_button["title"] }}</p>
+            </div>
+          </a>
+        </div>
+        @php
+            $counter += 0.2;
+        @endphp
+      @endforeach
     </div>
   </div>
 </section>
@@ -145,38 +130,28 @@
             @if (lang() == 'ar')
               <article style="text-align: justify">
                 <p>
-                    في ضوء السياسة الحكيمة لحضرة صاحب الجلالة السلطان المعظم - حفظه الله ورعاه - التي تجلت في توسيع صلاحيات جهاز الرقابة المالية للدولة لتشمل الرقابة الإدارية ، وتشريف جلالته - حفظه الله - لي برئاسة هذا الصرح الكبير ، تقديراً من جلالته بدوره ، وإيماناً منه برسالته ، فهي مسؤولية عزيزة وغالية ، وتشريفاً سامياً ، عقدنا معه العزم مع إخوتي وأخواتي منتسبي الجهاز على أن نكون أهلاً له .
+                  <b>السلام عليكم ورحمة الله تعالى وبركاته،،،</b>
                 </p>
                 <p>
-                    فقد استوجبت المرحلة الراهنة تطوير أبعاد العمل الرقابي ، و التركيز على الأهداف التي يسعى الجهاز إلى تحقيقها ، وفي مقدمتها توفير الحماية الواجبة للأموال العامة والتحقق من استخدام الموارد بطريقة اقتصادية وبكفاءة وفاعلية ، مُلبين في ذات الوقت آمال وطموحات المجتمع في "المزيد من المساءلة والشفافية والعدالة في الأداء الحكومي".
+                  يطيب لي بالأصالة عن نفسي وباسم منتسبي جهاز الرقابة المالية والإدارية للدولة أن أرحب بكم في الموقع الإلكتروني للجهاز على شبكة المعلومات الدولية (الإنترنت)، والذي يستعرض التشريعات المنظمة لعمل الجهاز، والمعلومات المتعلقة بأنشطته وأعماله ومنهجية عمله، بالإضافة إلى نوافذ الاتصال بالجهاز لتقديم المقترحات أو الاستفسارات أو الشكاوى والبلاغات، وغيرها.                  
                 </p>
                 <p>
-                    ومن هذا المنطلق بات من الضروري على جهاز الرقابة المالية والإدارية للدولة أن يسعى إلى تطوير وتحديث وظائفه وأسلوب عمله ، واضعاً في الإعتبار المتغيرات المحلية والإقليمية والدولية.
+                  ويُعد الموقع أحد أدوات التواصل الرئيسة التي يتيحها الجهاز لتعزيز الشراكة مع المجتمع تجسيداً لدوره بالإسهام في حماية المال العام ورفع كفاءة استخدامه وتبني ممارسات النزاهة، علاوةً على التواصل من خلال الحسابات الرسمية للجهاز في منصات التواصل الاجتماعي، وتطبيق الهواتف الذكية والبريد الإلكتروني والخط المجاني للتواصل الهاتفي، إلى جانب التواصل المباشر مع الأفراد بالوصول إلى مقر الجهاز في محافظة مسقط وأفرعه بمحافظات السلطنة، فضلاً عن اللقاءات المباشرة في الندوات التي ينفذها الجهاز، أو عبر ما يقدمه الجهاز من محتوى إعلامي وتوعوي في القوالب الإعلامية المرئية والمسموعة والإلكترونية والمطبوعة.
                 </p>
-                <p>
-                    لهذا كله وضعنا برنامجاً للعمل ومنهجية للأداء ، تقوم على المعيار العلمي وتتماشى مع الواقع العملي ، ويرتكز على ركائز جوهرية اهمها الاعتماد على روح التعاون البناء والتآزر الصادق مع الجهات الخاضعة للرقابة والمجتمع .
-                </p>
-                <p>
-                    وقد أطل هذا الموقع بحلته الجديدة مع النافذة المهمة والتي تُعنى باستفسارات المواطنين وملاحظاتهم لتفعيل جسور التواصل بين الجهاز وكافة المواطنين والمهتمين أينما كانوا .
-                </p>
+                <a href="{{route('pages', 'welcome')}}">المزيد ...</a>
               </article>
             @else
               <article>
-                  <p>
-                      In light of the wise and visionary leadership of His Majesty Sultan Qaboos bin Said and his deep belief in the significant role and mission of State Audit Institution (SAI), His Majesty extended its prerogatives to include administrative oversight. I consider the honor His Majesty bestowed on me to head this prestigious institution as a noble and precious responsibility and royal generosity. All the SAI staff, including myself, has undertaken to prove we are worthy of such honor.
-                  </p>
-                  <p>
-                      The current stage calls for the development of the various aspects of oversight mechanism and more focus on the objectives SAI attempts to realize, notably the due protection of public funds and ensuring the economic, efficient and effective use of resources. At the same time, we have to fulfill the aspirations and ambitions of our society towards “more accountability, transparency, and fairness in government performance.”
-                  </p>
-                  <p>
-                      Therefore, it has become imperative that SAI develop and update its functions and the way it operates taking into consideration the local, regional and international variables and developments.
-                  </p>
-                  <p>
-                      At SAI, we have developed an action plan and a performance methodology based on scientific criteria and essential foundations, notably leveraging the spirit of constructive cooperation and sincere synergy with auditees and the society in such a manner that conforms to and satisfies practical reality.
-                  </p>
-                  <p>
-                      As a part of the new approach, this new website has an important section on citizens’ enquiries and feedback in order to activate communication between SAI and all citizens and stakeholders wherever they may be.
-                  </p>
+                <p>
+                  <b>After compliments</b>
+                </p>
+                <p>
+                    On my behalf and on behalf of the employees of the State Audit Institution (SAI), it is my pleasure to welcome you to SAI website, which outlines the legislations regulating SAI’s work, and all information related to its activities, and work methodology. This website also provides the communication channels through which proposals, inquires and complaints can be filed.
+                </p>
+                <p>
+                    This website is one of the communication tools that SAI provides aiming to strengthen the partnership with the society, embodying its strong role in the protection of public fund and the adoption of integrity practices. Along with the website, SAI offers other communication channels such as social media platforms, mobile app, email, and toll-free. Individuals can also visit SAI headquarter or one of its branches in the governorates.
+                </p>
+                <a href="{{route('pages', 'welcome')}}">More ...</a>
               </article>
             @endif
           </div>

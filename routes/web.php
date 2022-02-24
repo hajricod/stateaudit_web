@@ -37,6 +37,7 @@ use App\Http\Controllers\Site\LawsAndRegulationsController;
 use App\Http\Controllers\Site\LibraryController;
 use App\Http\Controllers\Site\MediaController;
 use App\Http\Controllers\Site\NewsController;
+use App\Http\Controllers\Site\PagesController;
 use App\Http\Controllers\Site\StandardsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -226,3 +227,5 @@ Route::get('/search', function() {
     return view('site.search.index');
 
 });
+
+Route::get('/pages/{page}', [PagesController::class, 'index'])->name('pages');

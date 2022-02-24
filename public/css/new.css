@@ -12572,22 +12572,12 @@ div.carousel-item.active div.carousel-caption {
 
 .circle {
   height: 150px;
-  max-width: 300px;
   border-bottom: 3px solid rgba(144, 65, 66, 0.5);
   background-color: #fff;
   border-radius: 5px;
-  margin: 10px auto;
   transform: rotate(0deg);
   text-align: center;
   transition: all 0.5s ease-in-out;
-}
-
-.circle:hover {
-  border-bottom: 150px solid rgba(144, 65, 66, 0.5);
-}
-
-.circle:hover p {
-  color: #fff !important;
 }
 
 .circle p {

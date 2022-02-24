@@ -20,15 +20,16 @@ class PagesController extends Controller
      */
     public function index($page)
     {
-        $lang = str_replace('_', '-', app()->getLocale());
+        
+        $lang = lang();
 
-        if (!View::exists('pages.' . $page)) {
+        if (!View::exists('site.pages.' . $page)) {
             
             return abort(404);
 
         } else {
 
-            return view('/pages.' . $page, compact('lang'));
+            return view('site.pages.' . $page, compact('lang'));
         }
         
     }
