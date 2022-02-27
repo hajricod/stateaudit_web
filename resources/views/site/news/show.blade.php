@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 pt-2 pb-3 min-h-80">
-            <article class="overflow-auto p-2 pt-5">
-                <h4 class="d-none d-sm-block pt-5" style="line-height: inherit;">
+            <article class="overflow-auto p-2">
+                <h4 class="d-none d-sm-block" style="line-height: inherit;">
                     {{app()->getLocale() == 'ar' ? $news->title : $news->title_en}}
                 </h4>
                 <h5 class="d-block d-sm-none pt-2" style="line-height: inherit;">

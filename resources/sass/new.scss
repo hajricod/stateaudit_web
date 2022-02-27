@@ -46,10 +46,10 @@ main {
     min-height: 100vh;
     padding-top: 100px;
 
-    @media (max-width: $sm) {
-        // padding-bottom: 50px;
-        padding-top: 80px;
-    }
+    // @media (max-width: $sm) {
+    //     padding-bottom: 50px;
+    //     padding-top: 80px;
+    // }
     
     
 }
@@ -225,7 +225,7 @@ div#app {
         transform: rotate(-45deg);
     }
 
-    @media (max-width: $sm) {
+    @media (max-width: $md) {
         position: fixed;
         z-index: 1031;
         background-color: #fff;
@@ -520,6 +520,12 @@ footer {
 }
 
 nav.navbar  {
+
+    @media (max-width: $md) {
+        .nav-item {
+           
+        }
+    }
 
     @media (max-width: $md) {
         top: 0;

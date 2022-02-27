@@ -27,7 +27,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col pt-5">
+        <div class="col">
             <div class="d-flex justify-cotent-start align-items-center">
                 <h4>{{$program->title}}</h4>
             </div>

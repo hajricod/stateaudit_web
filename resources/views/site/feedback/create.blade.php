@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h3>{{__('Feedback')}}</h3>
+    <h4>{{__('Feedback')}}</h4>
     <hr>
     <div class="row">
         <div class="col-md-12">

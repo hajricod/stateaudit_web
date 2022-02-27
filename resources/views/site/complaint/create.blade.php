@@ -5,13 +5,11 @@
     <div class="row">
         <div class="col-md-12 pt-5 pb-3">
             <h4>{{__('Complaints Window')}}</h4>
+            <hr>
+            
             <div class="card border-0 shadow-sm">
                 <div class="card-body px-3 pt-5 pb-3">
-                    {{-- @if(session()->has('message'))
-                        <div class="alert alert-success">
-                            {{ session()->get('message') }}
-                        </div>
-                    @endif --}}
+
                     <p class="text-center">
                         <button type="button" class="btn btn-clear shadow-none text-primary" data-bs-toggle="modal" data-bs-target="#guideModal">
                             {{__('Submitting a Complaint Guide')}}

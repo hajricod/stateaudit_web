@@ -215,7 +215,7 @@ background-color: #f1f1f1;">
           </a>           
         </div>
         @php
-          $delay += .5; 
+          $delay += .2; 
         @endphp           
       @endforeach
     </div>

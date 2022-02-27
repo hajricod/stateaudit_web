@@ -8,7 +8,7 @@
             <div class="card border-0 rounded">
                 <div class="card-body">
                     <div class="d-flex justify-cotent-start align-items-center">
-                        <h2>{{__('Audit Manuals and Standards')}}</h2>
+                        <h4>{{__('Audit Manuals and Standards')}}</h4>
                     </div>
                     <hr>
                     <ul class="list-group-flush p-0">

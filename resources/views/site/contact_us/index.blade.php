@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container pt-3">
-    <h2>{{__('Contact Us')}}</h2>
+    <h4>{{__('Contact Us')}}</h4>
     <hr>
     <div class="row">
         <div class="col-md-5">

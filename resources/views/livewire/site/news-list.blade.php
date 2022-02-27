@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12 pt-5 pb-3 min-h-80">
+        <div class="col-md-12 pb-3 min-h-80">
             <h4>{{__('News')}}</h4>
             <hr>
             <div class="row d-flex align-items-end">

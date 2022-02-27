@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12 pt-5 pb-3">
+        <div class="col-md-12 pb-3">
             <h4 class="text-center">{{$program->title}}</h4>
             <hr>
             <ul class="list-group list-group-flush px-0">

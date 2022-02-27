@@ -79,7 +79,7 @@ a {
 
 <div class="container">
     <div class="row">
-        <div class="col-md-8 offset-md-2 pt-5 pb-3">
+        <div class="col-md-8 offset-md-2 pb-3">
             <h4 class="text-center">{{__('Events')}}</h4>
             <hr>
             <div id='calendar' ></div>

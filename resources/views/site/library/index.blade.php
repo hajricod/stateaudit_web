@@ -5,10 +5,8 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h2>{{__('Library')}}</h2>
-
+            <h4>{{__('Library')}}</h4>
             <hr>
-
             <ul class="list-group-flush p-0">
                 @foreach ($folders as $folder)
                     <li class="list-group-item d-flex justify-content-between align-items-center p-2 btn_folder" id="folder_{{$folder->id}}">

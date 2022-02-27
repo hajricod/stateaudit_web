@@ -44,7 +44,7 @@
     
 <div class="container">
     <div class="row">
-        <div class="col-md-12 pt-5 pb-3">
+        <div class="col-md-12 pb-3">
             <h4>{{__('Media and Awareness Center')}}</h4>
             <hr>
             <div class="row">

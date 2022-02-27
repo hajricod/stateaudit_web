@@ -26,7 +26,7 @@
 
     @livewireStyles
 </head>
-<body>
+<body id="top">
     
     @include('layouts/parts/site/fullPageLoginModal')
 
@@ -47,10 +47,18 @@
 
         @yield('banner')
         
-        <main>
+        <main {!! Request::is('/')? 'style="padding-top: 80px"' : '' !!}>
+            {{Route::currentRouteName()}}
             @yield('content')
         </main>
         <div id="webframe-bottom">
+        </div>
+        <div id="btn-top" class="position-fixed fixed-bottom mx-3 mb-3 d-none" style="height: 40px; width: 40px">
+            <a href="#top" class="btn btn-light rounded h-100 w-100 shadow p-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-up-short text-primary" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+                </svg>
+            </a>
         </div>
     </div>
     @include('layouts/parts/site/footer')
@@ -73,7 +81,25 @@
                     $('.navbar').removeClass('show-nav');
                     // $('.navbar').removeClass('top');
                 }
+
+                // if($(this).scrollBottom() == 0) {
+                //     $("#page-top").toggleClass("d-none")
+                // }
+
+                // if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+                //     alert('end reached');
+                // }
             });
+
+            window.onscroll = function(ev) {
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+
+                    $("#btn-top").removeClass("d-none");
+
+                }else {
+                    $("#btn-top").addClass("d-none");
+                }
+            };
 
             setTimeout(() => {
                 $(".loading").addClass("loader-exit");

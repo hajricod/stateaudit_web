@@ -12210,12 +12210,6 @@ main {
   padding-top: 100px;
 }
 
-@media (max-width: 576px) {
-  main {
-    padding-top: 80px;
-  }
-}
-
 #webframe-bottom {
   min-height: 20vh;
   background-image: url(/images/frame.svg?fcb9514d9b361fc25c869232bfd8846c), url(/images/frame_bottom_right.svg?e3f11a6d3d11b20761358779acf75ed2);
@@ -12392,7 +12386,7 @@ div#app {
   transform: rotate(-45deg);
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .site-logo {
     position: fixed;
     z-index: 1031;
