@@ -770,3 +770,53 @@ html:lang(ar) {
 .navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
     color: #fff;
 }
+
+.history-holder {
+    // padding-top: 30px !important;
+}
+
+.history-section {
+    min-height: 200px;
+    width: 100%;
+    border-radius: 50px;
+    border: 1px dashed #710f11;
+    margin-bottom: 20px;
+    position: relative;
+
+    span.year-tag {
+        position: absolute;
+        height: 65px;
+        width: 65px;
+        background-color: #f6f5f5;
+        top: 0;
+        text-align: center;
+        border-radius: 50%;
+        border: 2px solid #710f11;
+        line-height: 3em;
+        color: #710f11;
+        font-weight: 900;
+        font-size: 20px;
+    }
+}
+
+.history-section:nth-child(odd) {
+    border-left: none;
+    border-top: none;
+    border-radius: 0 0 50px 0;
+    margin-top: 40px;
+
+    span.year-tag {
+        right: -30px;
+    }
+}
+
+.history-section:nth-child(even) {
+    border-right: none;
+    border-top: none;
+    border-radius: 0 0 0 50px;
+    margin-top: 40px;
+
+    span.year-tag {
+        left: -30px;
+    }
+}
