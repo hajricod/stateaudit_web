@@ -63,15 +63,33 @@ class HomeController extends Controller
         $institutes = [
             [
                 "title" => "intosai",
-                "img"   => "intosai.png"
+                "img"   => "intosai.png",
+                "url"   => "https://www.intosai.org/"
             ],
             [
                 "title" => "asosai",
-                "img"   => "asosai.png"
+                "img"   => "asosai.png",
+                "url"   => "https://www.asosai.org/"
             ],
             [
                 "title" => "arabosai",
-                "img"   => "arabosai.png"
+                "img"   => "arabosai.png",
+                "url"   => "http://www.arabosai.org"
+            ],
+            [
+                "title" => "IFPP",
+                "img"   => "ifpp.png",
+                "url"   => "https://www.issai.org/professional-pronouncements/"
+            ],
+            [
+                "title" => "IMF",
+                "img"   => "imf.png",
+                "url"   => "https://www.imf.org/ar/Home"
+            ],
+            [
+                "title" => "Weforum",
+                "img"   => "wef.png",
+                "url"   => "https://www.weforum.org/"
             ],
         ];
 

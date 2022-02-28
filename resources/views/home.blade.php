@@ -208,7 +208,7 @@ background-color: #f1f1f1;">
       @endphp
       @foreach ($institutes as $institute)
         <div class="col-md-4 my-2">
-          <a href="#">
+          <a href="{{$institute['url']}}" target="_blank">
             <div class="card w-100 mx-auto btn-orgs anim" data-delay="{{$delay}}s">
               <img class="p-2 img-fluid" src="{{asset("images/". $institute['img'] ."")}}" alt="{{$institute['title']}}">
             </div>
