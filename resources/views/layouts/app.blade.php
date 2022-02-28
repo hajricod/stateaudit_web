@@ -52,7 +52,7 @@
         </main>
         <div id="webframe-bottom">
         </div>
-        <div id="btn-top" class="position-fixed fixed-bottom mx-3 mb-3 d-none" style="height: 40px; width: 40px">
+        <div id="btn-top" class="position-fixed fixed-bottom mx-3 mb-3 d-none" style="height: 40px; width: 40px; left: auto!important;">
             <a href="#top" class="btn btn-light rounded h-100 w-100 shadow p-1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-up-short text-primary" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
@@ -91,7 +91,7 @@
             });
 
             window.onscroll = function(ev) {
-                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 400) {
 
                     $("#btn-top").removeClass("d-none");
 

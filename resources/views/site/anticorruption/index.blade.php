@@ -6,7 +6,7 @@
     <hr>
     <div class="row">
         @if (lang() == 'ar') 
-            <div class="col-md-12 bg-white pt-5 pb-3" style="min-height: 80vh">
+            <div class="col-md-12 bg-white pt-5 pb-3 rounded shadow-sm" style="min-height: 80vh">
                 <p>
                     إيماناً من حكومة السلطنة بأهمية مكافحة الفساد فقد صدر المرسوم السلطاني رقم (64/2013) بالموافقة
                     على انضمام السلطنة في اتفاقية الأمم المتحدة لمكافحة الفساد ومنع الفساد، الأمر الذي عكس حرص السلطنة

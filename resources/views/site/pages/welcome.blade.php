@@ -7,9 +7,10 @@
         <div class="col-md-12 pt-5 pb-3">
             
             @if (lang() == 'ar')
-            <article style="text-align: justify">
-                <h4>الكلمة الترحيبية</h4>
-                <hr>
+            <h4>الكلمة الترحيبية</h4>
+            <hr>
+            <article class="bg-white p-3 shadow-sm rounded" style="text-align: justify">
+                
                 <div class="float-md-start p-2 text-center">
                     <img src="{{asset('/images/nasser_mawali.jpg')}}" width="300" alt="Nasser Al Mawali">
                     <div class="p-2 text-center">
@@ -51,9 +52,10 @@
             </article>
 
             @else
-            <article style="text-align: justify">
-                <h4>Welcome</h4>
-                <hr>
+            <h4>Welcoming Word</h4>
+            <hr>
+            <article class="bg-white p-3 shadow-sm rounded" style="text-align: justify">
+                
                 <div class="float-md-end p-2 text-center">
                     <img src="{{asset('/images/nasser_mawali.jpg')}}" width="300" class="shadow-sm" alt="Nasser Al Mawali">
                     <div class="p-2 text-center">

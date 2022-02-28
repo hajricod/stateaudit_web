@@ -35,7 +35,7 @@
                 <ul class="list-group p-0 mb-5">
                     <a href="tel:+96880000008" class="list-group-item d-flex justify-content-between align-items-center">
                     <div class="">
-                        <div class="fw-bold">{{__('Free Number')}}</div>
+                        <div class="fw-bold">{{__('Toll Free')}}</div>
                         <p class="text-left m-0" dir="ltr">+968 8000 0008</p>
                     </div>
                     <span class="badge rounded-pill">

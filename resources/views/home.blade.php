@@ -41,7 +41,7 @@
         1
       </div>
       <div>
-        <p class="mb-2 text-light text-center">الرقم المجاني</p>
+        <p class="mb-2 text-light text-center">{{__('Toll Free')}}</p>
         <div class="d-flex align-items-center">
           <span class="bg-white p-1 {{lang() == 'ar'? 'ps-4 pe-2':'pe-4 ps-2'}}" style="
           margin-{{lang() == 'ar'? 'left':'right'}}: -20px; 
