@@ -609,7 +609,7 @@ nav.navbar  {
 
     position: fixed;
     top: 70px;
-    z-index: 10000;
+    z-index: 1000;
     width: 400px;
 
     @media (max-width: $md) {

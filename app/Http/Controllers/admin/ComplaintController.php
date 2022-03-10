@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ComplaintController extends Controller
 {
+    public $action = [ "show" => 'show'];
     /**
      * Display a listing of the resource.
      *
@@ -63,6 +64,12 @@ class ComplaintController extends Controller
         $complaint->attch2 ? $attachments[] = $complaint->attch2 : '';
         $complaint->attch3 ? $attachments[] = $complaint->attch3 : '';
         $complaint->attch4 ? $attachments[] = $complaint->attch4 : '';
+
+        $complaintLog = new ComplaintLogsController();
+
+        $action = "show";
+
+        $complaintLog->add($complaint->id, $this->action["show"]);
             
         return view('admin.complaints.show', compact(['complaint', 'attachments']));
     }
