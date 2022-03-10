@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ComplaintLog;
+use Carbon\Carbon;
 
 class ComplaintLogsController extends Controller
 {
@@ -11,8 +12,9 @@ class ComplaintLogsController extends Controller
 
         $user = auth()->user();
         $complaint = new ComplaintLog();
+        $complaintUserLogs = $this->checkUserLog($complaint_id, $user->id, $action);
 
-        if($this->checkUserAction($complaint_id, $user->id, $action)) {
+        if(count($complaintUserLogs) == 0) {
 
             $complaint->create([
                 "complaint_id" => $complaint_id,
@@ -20,13 +22,17 @@ class ComplaintLogsController extends Controller
                 "user_name"    => $user->name,
                 "action"       => $action
             ]);
+
+        } else {
+
+            foreach ($complaintUserLogs as $complaintUserLog) {
+                $complaintUserLog->update(["updated_at" => Carbon::now()]);
+            }
         }
     }
 
-    protected function checkUserAction($complaint_id, $user_id, $action) : bool
+    protected function checkUserLog($complaint_id, $user_id, $action)
     {
-        $complaintLog = ComplaintLog::where(["complaint_id" => $complaint_id, "user_id" => $user_id, "action" => $action])->get();
-
-        return count($complaintLog) > 0 ? false : true;
+        return ComplaintLog::where(["complaint_id" => $complaint_id, "user_id" => $user_id, "action" => $action])->get();
     }
 }

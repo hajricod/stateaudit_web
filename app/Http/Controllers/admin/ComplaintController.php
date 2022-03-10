@@ -5,14 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Complaint;
 use Illuminate\Http\Request;
-use App\Models\Group;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ComplaintController extends Controller
 {
-    public $action = [ "show" => 'show'];
+    public $action = [ "show" => 'show', "update" => "update", "delete" => "delete"];
     /**
      * Display a listing of the resource.
      *
@@ -66,9 +63,6 @@ class ComplaintController extends Controller
         $complaint->attch4 ? $attachments[] = $complaint->attch4 : '';
 
         $complaintLog = new ComplaintLogsController();
-
-        $action = "show";
-
         $complaintLog->add($complaint->id, $this->action["show"]);
             
         return view('admin.complaints.show', compact(['complaint', 'attachments']));
@@ -122,6 +116,9 @@ class ComplaintController extends Controller
         }
 
         $complaint->delete();
+
+        $complaintLog = new ComplaintLogsController();
+        $complaintLog->add($complaint->id, $this->action["delete"]);
     }
 
     public function downloadFile($file)
