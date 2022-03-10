@@ -39,6 +39,18 @@
                 </div>
 
             </div>
+            <hr>
+            <p class="text-center">{{__('Logs')}}</p>
+            <div class="row">
+                <div class="col-md-3 mb-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{__('Complaints')}}</h5>
+                            <hr>
+                            <a class="btn btn-primary btn-block" href="{{route('complaint.logs')}}">{{__('Enter')}}</a>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 </div>

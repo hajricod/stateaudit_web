@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AudiosController as AdminAudiosController;
 use App\Http\Controllers\Admin\BranchesController as AdminBranchesController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ComplaintController as AdminComplaintController;
+use App\Http\Controllers\Admin\ComplaintLogsController as AdminComplaintLogsController;
 use App\Http\Controllers\Admin\EmployeesSectionController;
 use App\Http\Controllers\Admin\FeedbackController as AdminFeedbackController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
@@ -195,6 +196,11 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
 
         return view('admin.settings.index');
     })->name('settings');
+
+    Route::prefix('logs/')->group(function () {
+
+        Route::get('complaints', [AdminComplaintLogsController::class, 'index'])->name('complaint.logs');
+    });
 
     
 });

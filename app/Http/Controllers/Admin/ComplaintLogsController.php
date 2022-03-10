@@ -8,6 +8,13 @@ use Carbon\Carbon;
 
 class ComplaintLogsController extends Controller
 {
+    public $path = "admin.settings.logs.complaints.";
+
+    public function index()
+    {
+        return view($this->path.'index');
+    }
+
     public function add($complaint_id, $action) : void {
 
         $user = auth()->user();
