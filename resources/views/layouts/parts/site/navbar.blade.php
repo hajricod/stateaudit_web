@@ -12,6 +12,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
+            
             <ul class="navbar-nav px-0 main-navbar">
                 @foreach ($headerLinks as $link)
                     @if ($link->url != '#')
@@ -45,16 +46,37 @@
                 @endforeach
             </ul>
 
+            
+
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav {{ lang() == 'ar' ? 'mr-auto me-auto':'ml-auto ms-auto'}}  px-0">
 
                 <!-- Search -->
+                {{-- <li class="nav-item py-2">
+                    <div id="readspeaker_button" class="rs_skip rsbtn rs_rtl rs_preserve rs_whitelogo rs_rtl_transformed" lang="{{lang()}}">
+                        <a class="rsbtn_play" accesskey="L" title="ReadSpeaker" href="//app-as.readspeaker.com/cgi-bin/rsent?customerid=6610&amp;lang={{lang()}}&amp;readid=ReaderDiv&amp;url=www.sai.gov.om">
+                            <span class="rsbtn_left rsimg rspart"><span class="rsbtn_text"><span>{{__('Listen')}}</span></span></span>
+                            <span class="rsbtn_right rsimg rsplay rspart"></span>
+                        </a>
+                    </div>
+                </li> --}}
                 <li class="nav-item d-none d-md-block">
                     {{-- <button class="shadow-none btn text-light px-3" id="btn-search" data-bs-toggle="modal" href="#searchModalToggle" role="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                         </svg>
                     </button> --}}
+                    <div id="accessi" class="d-inline-flex" style="vertical-align: middle">
+                        <button type="button" class="btn text-light py-1 px-2 resetFont">
+                            A<sub> </sub>
+                        </button>
+                        <button type="button" class="btn text-light py-1 px-2 increaseFont">
+                            A<sup>+</sup>
+                        </button>
+                        <button type="button" class="btn text-light py-1 px-2 decreaseFont">
+                            A<sup>-</sup>
+                        </button>
+                    </div>
                     <a class="shadow-none btn text-light px-3" id="btn-search" href="/search">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -139,6 +161,17 @@
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                             </svg>
                         </a>
+                        <div id="accessi" class="d-inline-flex" style="vertical-align: middle">
+                            <button type="button" class="btn text-light py-1 px-2 resetFont">
+                                A<sub> </sub>
+                            </button>
+                            <button type="button" class="btn text-light py-1 px-2 increaseFont">
+                                A<sup>+</sup>
+                            </button>
+                            <button type="button" class="btn text-light py-1 px-2 decreaseFont">
+                                A<sup>-</sup>
+                            </button>
+                        </div>
                     </div>
                 </li>
             </ul>

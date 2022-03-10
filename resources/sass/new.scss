@@ -579,6 +579,11 @@ nav.navbar  {
     }
 }
 
+#accessi button {
+    font-size: 24px;
+    width: 50px;
+}
+
 .show-nav {
     background-color: #fff!important;
     background-size: 100%;
@@ -589,8 +594,34 @@ nav.navbar  {
         color: #710f11!important;
     }
 
-    #btn-search {
-        color: $main!important;
+    @media (min-width: $lg) {
+        #btn-search {
+            color: $main!important;
+        }
+
+        #accessi button {
+            color: $main!important;
+        }
+    }
+}
+
+.readSpeaker-holder {
+
+    position: fixed;
+    top: 70px;
+    z-index: 10000;
+    width: 400px;
+
+    @media (max-width: $md) {
+        position: fixed;
+        top: 20px;
+        z-index: 10000;
+        width: 200px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        overflow: hidden;
+        min-height: 60px;
     }
 }
 

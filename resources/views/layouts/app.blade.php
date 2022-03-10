@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/new.js') }}" defer></script>
+    <script src="//cdn1.readspeaker.com/script/6610/webReader/webReader.js?pids=wr" type="text/javascript"></script>
     @yield('head-script')
     
     <!-- Fonts -->
@@ -21,13 +22,22 @@
     <!-- Styles -->
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> --}}
     <link href="{{ asset('css/new.css') }}" rel="stylesheet">
+    <link rel="alternate" href="https://www.readspeaker.com/ar/" hreflang="ar">
 
     @yield('style')
 
     @livewireStyles
 </head>
 <body>
-    
+    <div class="readSpeaker-holder">
+        <div id="readspeaker_button" class="rs_skip rsbtn rs_rtl rs_preserve rs_whitelogo rs_rtl_transformed" lang="{{lang()}}">
+            <a class="rsbtn_play" accesskey="L" title="ReadSpeaker" href="//app-as.readspeaker.com/cgi-bin/rsent?customerid=6610&amp;lang={{lang()}}&amp;readid=readText&amp;url=www.sai.gov.om/">
+                <span class="rsbtn_left rsimg rspart"><span class="rsbtn_text"><span>{{__('Listen')}}</span></span></span>
+                <span class="rsbtn_right rsimg rsplay rspart"></span>
+            </a>
+        </div>
+    </div>
+
     @include('layouts/parts/site/fullPageLoginModal')
 
     {{-- @include('layouts/parts/site/fullSearchModal') --}}
@@ -39,27 +49,29 @@
         </div>
     </div>
 
-        <div class="site-logo">
-            <img src="{{asset('/images/saiLogo.png')}}" alt="SAI logo" width="100%">
-        </div>
-        
-        @include('layouts/parts/site/navbar')
-
-        @yield('banner')
-        
-        <main {!! Request::is('/')? 'style="padding-top: 80px"' : '' !!}>
-            @yield('content')
-        </main>
-        <div id="webframe-bottom">
-        </div>
-        <div id="btn-top" class="position-fixed fixed-bottom mx-3 mb-3 d-none" style="height: 40px; width: 40px; left: auto!important;">
-            <a href="#top" class="btn btn-light rounded h-100 w-100 shadow p-1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-up-short text-primary" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
-                </svg>
-            </a>
-        </div>
+    <div class="site-logo">
+        <img src="{{asset('/images/saiLogo.png')}}" alt="SAI logo" width="100%">
     </div>
+    
+    @include('layouts/parts/site/navbar')
+
+    @yield('banner')
+
+    <main id="readText" {!! Request::is('/')? 'style="padding-top: 80px"' : '' !!}>
+        @yield('content')
+    </main>
+
+    <div id="webframe-bottom">
+    </div>
+    
+    <div id="btn-top" class="position-fixed fixed-bottom mx-3 mb-3 d-none" style="height: 40px; width: 40px; left: auto!important;">
+        <a href="#top" class="btn btn-light rounded h-100 w-100 shadow p-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-up-short text-primary" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+            </svg>
+        </a>
+    </div>
+ 
     @include('layouts/parts/site/footer')
 
     {{-- <script src="{{ asset('js/echo.js') }}" defer></script> --}}
@@ -189,9 +201,45 @@
                     <span class="spinner-border text-light spinner-border-sm" role="status" aria-hidden="true" id="spinner"></span>
                 `);
             });
+
+            var section = new Array('span', '.text', 'body');
+            section = section.join(',');
+
+            // Reset Font Size
+            var originalFontSize = $(section).css('font-size');
+            $(".resetFont").click(function () {
+                $(section).css('font-size', originalFontSize);
+            });
+
+            // Increase Font Size
+            $(".increaseFont").click(function () {
+                var currentFontSize = $(section).css('font-size');
+                var currentFontSizeNum = parseFloat(currentFontSize, 10);
+                var newFontSize = currentFontSizeNum * 1.2;
+                if (newFontSize >= 30) {
+                    newFontSize = 30;
+                }
+                $(section).css('font-size', newFontSize);
+                return false;
+            });
+
+            // Decrease Font Size
+            $(".decreaseFont").click(function () {
+                var currentFontSize = $(section).css('font-size');
+                var currentFontSizeNum = parseFloat(currentFontSize, 10);
+                var newFontSize = currentFontSizeNum * 0.8;
+                if (newFontSize <= 14) {
+                    newFontSize = 14;
+                }
+                $(section).css('font-size', newFontSize);
+                return false;
+            });
         });
     </script>
-
+    @if (lang() == 'ar')
+        <script src="//cdn1.readspeaker.com/script/17/webReader/webReader.js?pids=wr&amp;skin=RS_RTL&amp;ver=1" id="rs_hl_rtl-js"></script>
+    @endif
+    
     @yield('script')
 
     @livewireScripts

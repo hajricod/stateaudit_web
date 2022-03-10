@@ -24,10 +24,10 @@
                         </ul>
                     @endif
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4 order-2 order-md-1">
                             <livewire:site.videos-list :progid="$prog_id" :listid="$list_id"/>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-8 order-1 order-md-2">
                             @if (count($videos) > 0)
                                 <div id="video_player">
                                     @foreach ($videos as $video)
