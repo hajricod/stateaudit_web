@@ -63,10 +63,9 @@ use App\Models\Group;
 Route::get('/clear', function () {
 
 	/* php artisan migrate */
-    // \Artisan::call('config:clear');
-    // \Artisan::call('cache:clear');
-    // \Artisan::call('config:cache');
-    \Artisan::call('key:generate');
+    \Artisan::call('config:clear');
+    \Artisan::call('cache:clear');
+    \Artisan::call('config:cache');
     dd("Done");
 });
 
