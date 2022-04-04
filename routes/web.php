@@ -61,11 +61,12 @@ use App\Models\Group;
 // Public
 
 Route::get('/clear', function () {
-	
+
 	/* php artisan migrate */
-    \Artisan::call('config:clear');
-    \Artisan::call('cache:clear');
-    \Artisan::call('config:cache');
+    // \Artisan::call('config:clear');
+    // \Artisan::call('cache:clear');
+    // \Artisan::call('config:cache');
+    \Artisan::call('key:generate');
     dd("Done");
 });
 
@@ -143,7 +144,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::resource('/branches', AdminBranchesController::class)->except([
         'show'
     ]);
-    
+
 
     Route::prefix('standards/')->group(function () {
         Route::get('', [AdminStandardsController::class, 'index']);
@@ -155,7 +156,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
         Route::put('/update_file/{id}', [AdminStandardsController::class, 'updateFile']);
         Route::delete('/destroy_file/{id}', [AdminStandardsController::class, 'destroyFile']);
     });
-    
+
 
     Route::get('/media/sections/{id}', [AdminMediaController::class, 'sections'])->name('media-sections');
     Route::get('/media/list/{id}', [AdminMediaController::class, 'list'])->name('media-list');
@@ -165,16 +166,16 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/media/files/{id}', [AdminMediaController::class, 'files'])->name('media-files');
     Route::get('/profile/{profile?}', [ProfileController::class, 'show'])->name('profile');
     Route::get('/download/{dir?}/{file?}', [FilesController::class, 'downloadFile'])->name('download');
-    
+
     Route::resource('/profile', ProfileController::class)->except([
         'show'
     ]);
-    
+
     Route::get('/sub_folders_files/{id}', [AdminLibraryController::class, 'sub_folders_files']);
     Route::get('/footerLinks/{id?}', [FooterController::class, 'footerLinks'])->name('footer_links');
     Route::get('/headerSublinks/{id?}', [HeaderController::class, 'headerSublinks'])->name('header_links');
 
-    // ajax 
+    // ajax
     Route::post('/addHeaderLink', [HeaderController::class, 'addHeaderLink']);
     Route::post('/updateHeaderLinks/{id}', [HeaderController::class, 'updateHeaderLinks']);
     Route::post('/updateHeaderSublinks/{id}', [HeaderController::class, 'updateHeaderSublinks']);
@@ -188,7 +189,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::post('/deleteFooterSublink/{id}', [FooterController::class, 'deleteFooterSublink']);
 
     Route::get('/settings', function () {
-        
+
         $group = Group::find(Auth::user()->group_id);
 
         if (Gate::denies('group-admin', $group)) {
@@ -204,7 +205,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
         Route::get('complaints', [AdminComplaintLogsController::class, 'index'])->name('complaint.logs');
     });
 
-    
+
 });
 
 Route::get('/language', [LanguageController::class, 'setLang'])->name('language');
