@@ -122,7 +122,7 @@
                     </a>
                 </th>
                 
-                <th></th>
+                {{-- <th></th> --}}
             </tr>
             </thead>
             <tbody>
@@ -134,12 +134,12 @@
                         </td>
                         {{-- <td>{{$complaintLog->user_id}}</td> --}}
                         <td>{{$complaintLog->complaint_id}}</td>
-                        <td>{{$complaintLog->action}}</td>
+                        <td>{{__($complaintLog->action)}}</td>
                         <td>{{$complaintLog->updated_at->format("M j, Y, g:i A")}}</td>
                         <td>{{$complaintLog->created_at->format("M j, Y, g:i A")}}</td>
                         {{-- <td>{{$complaintLog->created_at->format("M j, Y, g:i A")}}</td> --}}
-                        <td>
-                            {{-- @if (userRole('complaint.delete'))
+                        {{-- <td>
+                            @if (userRole('complaint.delete'))
                             <button 
                             class="btn btn-link btnDelete" 
                             data-toggle="modal" 
@@ -172,7 +172,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @endif --}}
+                            @endif
                             @if (userRole('complaint.view'))
                             <a class="btn btn-link" href="#">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill text-primary" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -181,7 +181,7 @@
                                 </svg>
                             </a>
                             @endif
-                        </td>
+                        </td> --}}
                     </tr>
                 @endforeach
             </tbody>

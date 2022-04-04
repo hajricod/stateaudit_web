@@ -74,8 +74,7 @@ class ComplaintController extends Controller
 
             Mail::send(new ComplaintSent($complaint));
             Mail::send(new NewComplaint($complaint));
-
-            // return redirect()->back()->with('message', __('Complaint was sent successfully!'));
+            
             return redirect('/complaint/success/'.$complaint->id)->with('message', __('Complaint was sent successfully!'));
         }
 

@@ -39,6 +39,7 @@ use App\Http\Controllers\Site\LibraryController;
 use App\Http\Controllers\Site\MediaController;
 use App\Http\Controllers\Site\NewsController;
 use App\Http\Controllers\Site\PagesController;
+use App\Http\Controllers\Site\PoliciesController;
 use App\Http\Controllers\Site\StandardsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -98,6 +99,7 @@ Route::get('/faq', [FaqController::class, 'index']);
 Route::get('/fdgo', [FdgoController::class, 'index']);
 Route::get('/anti_corruption', [AnticorruptionController::class, 'index']);
 Route::get('/laws_regulations', [LawsAndRegulationsController::class, 'index']);
+Route::get('/policies', [PoliciesController::class, 'index']);
 
 Route::get('/mailable', function () {
     $complaint = App\Models\Complaint::find(71);
